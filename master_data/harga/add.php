@@ -8,8 +8,7 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
     exit;
 }
 
-// Ambil data harga
-// mengambil semua data dari tabel "data_produk" dan diurutkan berdasarkan id_produk
+// Mengambil data dari tabel "data_produk"
 $dataProduk = ambilData('data_produk', 'id_produk, no_produk, deskripsi');
 ?>
 

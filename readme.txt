@@ -26,4 +26,30 @@ Ini akan mengambil semua data dari tabel nama_tabel, mengurutkannya berdasarkan 
 Anda dapat menyesuaikan parameter sesuai dengan kebutuhan Anda dalam penggunaan fungsi ambilData.
   
 
-
+                <div class="table dynamic-table">
+                    <div class="table-body">
+                        <table id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Produk</th>
+                                    <th>Kuantitas</th>
+                                    <th>Harga</th>
+                                    <th>Total</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="data-row">
+                                    <td>
+                                        tes
+                                    </td>
+                                    <td><input type="text" name="phone" class="phone"></td>
+                                    <td><input type="text" name="phone" class="phone"></td>
+                                    <td><input type="text" name="phone" class="phone"></td>
+                                    <td><button class="deleteRow" style="display:none;">Delete</button><button
+                                            class="addRow">Add</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>

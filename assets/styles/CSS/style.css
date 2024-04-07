@@ -343,7 +343,6 @@ body {
 
 .table {
   width: 100%;
-  overflow: hidden;
   position: relative;
   background-color: #fff;
   padding: 2rem;
@@ -414,6 +413,13 @@ tbody td .action a:last-child {
   margin-right: 0;
 }
 
+.dynamic-table {
+  padding: 0;
+}
+.dynamic-table button {
+  border: none;
+}
+
 .form-wrapper {
   overflow-y: auto;
   height: 100%;
@@ -443,8 +449,8 @@ tbody td .action a:last-child {
   height: 120px;
 }
 .form-wrapper form .header-logo input[type=file] {
-  /* Sembunyikan default tombol 'Browse' */
-  display: none;
+  opacity: 0;
+  height: 100%;
 }
 .form-wrapper form .header-logo .custom-file-upload {
   display: flex;
@@ -457,7 +463,7 @@ tbody td .action a:last-child {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 3;
+  z-index: 4;
   padding: 6px 12px;
   cursor: pointer;
 }
@@ -470,7 +476,7 @@ tbody td .action a:last-child {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 .form-wrapper form .header-logo .overlay {
   position: absolute;
@@ -479,7 +485,7 @@ tbody td .action a:last-child {
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.5); /* Warna putih dengan opacity 0.5 */
-  z-index: 2;
+  z-index: 3;
 }
 .form-wrapper form .header-content {
   position: relative;

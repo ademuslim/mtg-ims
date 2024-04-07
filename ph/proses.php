@@ -48,12 +48,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Simpan data ke database
-        tambahData("penawaran_harga", ["no_ph", "tanggal", "id_pengirim", "id_penerima", "contact_person", "status", "kop_surat"], [$noPh, $tanggal, $pengirim, $penerima, $kontakUp, $status, $pathFile], "penawaran harga");
+        // Query SQL untuk menambahkan data ke dalam tabel
+        $sql = "INSERT INTO penawaran_harga (no_ph, tanggal, id_pengirim, id_penerima, contact_person, status, kop_surat) VALUES ('$noPh', '$tanggal', '$pengirim', '$penerima', '$kontakUp', '$status', '$pathFile')";
 
+        // Jalankan query dan periksa apakah berhasil
+        if (mysqli_query($conn, $sql)) {
+            // Jika penambahan berhasil, ambil ID unik data yang baru ditambahkan
+            $last_id = mysqli_insert_id($conn);
+
+            // Redirect pengguna ke halaman add.php dengan membawa ID unik
+            header("Location: detail/add_detail.php?id=$last_id");
+            exit();
+        } else {
+            // Jika terjadi kesalahan saat menambahkan data, tampilkan pesan kesalahan dan redirect ke halaman index.php
+            $_SESSION['warning_message'] = "Data gagal ditambahkan.";
+            header("Location: index.php");
+            exit();
+        }
     } else {
-        echo "Error: " . $getLastIDQuery . "<br>" . mysqli_error($conn);
-        exit(); // Exit setelah menampilkan pesan kesalahan
+        // Jika tombol "Simpan" tidak ditekan, redirect pengguna ke halaman add.php
+        header("Location: add.php");
+        exit();
     }
 }
-
 ?>

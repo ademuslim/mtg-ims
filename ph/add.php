@@ -8,6 +8,8 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
     exit;
 }
 
+// Mengambil semua data dari tabel "data_produk"
+$dataProduk = ambilData('data_produk', '*');
 ?>
 
 <main>
@@ -156,21 +158,43 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
                                 <input type="hidden" name="kontak_up" id="kontak" value="">
                                 <div id="kontak-error" class="error-message"></div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="form-row" style="background-color: red;">
-                        tes
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
                             <input type="hidden" name="status" value="<?= "draft"; ?>">
 
                             <input type="submit" value="Simpan" class="success-btn" name="add">
                         </div>
                     </div>
                 </form>
+            </div>
+
+
+            <div class="table dynamic-table">
+                <div class="table-body">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Produk</th>
+                                <th>Kuantitas</th>
+                                <th>Harga</th>
+                                <th>Total</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form action=""></form>
+                            <tr class="data-row">
+                                <td>
+                                    tes
+                                </td>
+                                <td><input type="text" name="phone" class="phone"></td>
+                                <td><input type="text" name="phone" class="phone"></td>
+                                <td><input type="text" name="phone" class="phone"></td>
+                                <td><button class="deleteRow" style="display:none;">Delete</button><button
+                                        class="addRow">Add</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -261,6 +285,7 @@ handleDropdown(
     "kontak"
 );
 
+
 // Fungsi prefiew upload logo
 function previewImage(event) {
     let preview = document.getElementById('image-preview');
@@ -283,6 +308,7 @@ function validateForm() {
     let pengirim = document.getElementById("pengirim").value;
     let penerima = document.getElementById("penerima").value;
     let kontak = document.getElementById("kontak").value;
+
     let pengirimError = document.getElementById("pengirim-error");
     let penerimaError = document.getElementById("penerima-error");
     let kontakError = document.getElementById("kontak-error");
@@ -302,7 +328,7 @@ function validateForm() {
     }
 
     if (kontak === "") {
-        kontakError.innerText = "Harap pilih kontak.";
+        kontakError.innerText = "Harap pilih contact person(up).";
         return false;
     } else {
         kontakError.innerText = "";
@@ -369,6 +395,32 @@ function updateHeaderContentPreview(pengirimId) {
     };
     xhr.send();
 }
+
+// Tabel dynamic
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("addRow")) {
+        var currentRow = event.target.closest(".data-row");
+        var newRow = currentRow.cloneNode(true);
+
+        // Tombol delete ditampilkan di baris sebelumnya
+        currentRow.querySelector(".deleteRow").style.display = "inline-block";
+
+        // Tombol add disembunyikan di baris sebelumnya
+        currentRow.querySelector(".addRow").style.display = "none";
+
+        // Tombol delete disembunyikan di baris baru
+        newRow.querySelector(".deleteRow").style.display = "none";
+
+        // Tombol add ditampilkan di baris baru
+        newRow.querySelector(".addRow").style.display = "inline-block";
+
+        // Baris baru ditambahkan
+        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+    } else if (event.target.classList.contains("deleteRow")) {
+        // Hapus baris ketika tombol delete ditekan
+        event.target.closest(".data-row").remove();
+    }
+});
 </script>
 </body>
 
