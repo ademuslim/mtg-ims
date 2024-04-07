@@ -1,0 +1,177 @@
+// Import reset.scss
+@import "reset";
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  width: 45%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  .brand {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-inline: 2rem;
+    gap: 1rem;
+    color: $text-light;
+    background-image: url(../../images/sidebar-bg.jpg);
+    background-size: cover;
+    background-position: right;
+    .brand-name,
+    .brand-description {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .login-form {
+    width: 50%;
+    padding: 2rem;
+    background-color: #fff;
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    button:last-child {
+      margin-top: 20px;
+    }
+  }
+}
+
+/* CSS untuk modal register */
+.modal {
+  display: none; /* Modal disembunyikan secara default */
+  position: fixed; /* Modal tetap di tempat saat digulir */
+  z-index: 1000; /* Z-index yang tinggi untuk menutupi konten lain */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.8
+  ); /* Warna latar belakang semi-transparan */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 8% auto; /* Posisi modal di tengah */
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 400px; /* Lebar maksimum modal */
+  h2 {
+    margin-bottom: 1.1rem;
+  }
+}
+
+#role {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.form-group {
+  margin-bottom: 20px;
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}
+
+button {
+  width: 100%;
+  padding: 11px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+/* Mengatur tampilan modal saat ditampilkan */
+#registerModal.show {
+  display: block;
+}
+
+// NOTIFICATION
+.error-message,
+.success-message {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 2rem;
+  padding: 1rem;
+  color: #fff;
+  animation: fadeOut 4s forwards; /* Animasi hilang setelah 3 detik */
+}
+
+.error-message {
+  background-color: orangered;
+}
+
+.success-message {
+  background-color: #007bff;
+}
+
+@keyframes fadeOut {
+  0%,
+  90% {
+    opacity: 1; /* Mulai dengan opasitas 100% */
+  }
+  100% {
+    opacity: 0; /* Selesaikan dengan opasitas 0% */
+    display: none; /* Sembunyikan setelah selesai animasi */
+  }
+}
+
+// Media query untuk layar mobile
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    .brand {
+      padding-block: 1rem;
+    }
+    .brand,
+    .login-form {
+      width: 100%;
+    }
+  }
+}
