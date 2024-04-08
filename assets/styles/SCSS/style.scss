@@ -407,8 +407,9 @@ tbody td .action {
   }
 }
 
-// FORM INPUT
-.form-wrapper {
+// FORM INPUT + DOC PREVIEW
+.form-wrapper,
+.doc-preview-wrapper {
   overflow-y: auto;
   height: 100%;
   background-color: #fff;
@@ -423,7 +424,8 @@ tbody td .action {
     }
   }
 
-  form {
+  form,
+  .doc-preview {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -521,7 +523,8 @@ tbody td .action {
         width: 300px;
       }
     }
-    .form-row {
+    .form-row,
+    .row {
       display: flex;
       justify-content: space-between;
       gap: 4rem;
@@ -543,14 +546,15 @@ tbody td .action {
         }
       }
     }
-    .form-group.lg {
-      width: calc(100% - 140px);
-    }
-    .form-group.sm {
-      width: 150px;
-    }
-    .form-group {
+    .form-group,
+    .preview-group {
       width: 50%;
+      &.lg {
+        width: calc(100% - 140px);
+      }
+      &.sm {
+        width: 150px;
+      }
 
       .form-info {
         margin-bottom: 1.1rem;
@@ -583,6 +587,7 @@ tbody td .action {
           border: none;
           height: 100%;
           outline: none;
+          padding-left: 0.5rem;
           border-bottom: 1px solid silver;
           background-color: #f2f8fc;
           box-sizing: border-box; // Box sizing
@@ -625,7 +630,8 @@ tbody td .action {
           background-color: #0d6ab0;
         }
       }
-      .input-data-readonly {
+      .input-data-readonly,
+      .preview-box {
         display: flex;
         align-items: center;
         margin-top: calc(17.33px + 5px);
@@ -643,6 +649,83 @@ tbody td .action {
             background-color: #fff;
             border: none;
           }
+        }
+      }
+      .preview-box {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-block: 1.5rem;
+        p {
+          margin-bottom: 0.8rem;
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+        .tab {
+          display: inline-block;
+          &.sm {
+            width: 50px;
+          }
+        }
+        &.right {
+          align-items: flex-end;
+        }
+      }
+      .form-group-secondary {
+        width: 100%;
+        flex-wrap: wrap;
+        display: flex;
+
+        .input-data {
+          flex: 1 1 50%; /* Setiap input-data akan memenuhi 50% lebar parent */
+
+          box-sizing: border-box;
+          label {
+            font-size: 0.8rem;
+          }
+          &:nth-child(even) {
+            padding-left: 0.5rem; /* Tambahkan padding hanya pada input-data child genap */
+          }
+          &:nth-child(odd) {
+            padding-right: 0.5rem; /* Tambahkan padding hanya pada input-data child genap */
+          }
+          &:last-child {
+            padding: 0;
+          }
+          input:focus ~ .underline {
+            width: calc(100% - 0.5rem);
+          }
+          .last-input:focus ~ .underline {
+            width: 100%;
+          }
+        }
+        &.form-edit {
+          display: grid;
+          width: 100%;
+          grid-template-columns: 30% 70%; /* Kolom pertama 20%, kolom kedua 80% */
+          .form-edit-labels {
+            display: flex;
+            flex-direction: column;
+            label {
+              height: 40px;
+              display: flex;
+              align-items: center;
+              margin-bottom: 2rem; /* Memberi jarak antar label */
+            }
+          }
+          .form-edit-inputs {
+            .input-data {
+              padding: 0;
+              input:focus ~ .underline {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+      .preview-group {
+        &.lg {
+          width: 100%;
         }
       }
     }

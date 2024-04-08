@@ -7,6 +7,98 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
     header("Location: " . base_url('auth/login.php'));
     exit;
 }
+// Periksa apakah ID diteruskan melalui URL
+if(isset($_GET['id']) && !empty($_GET['id'])) {
+    // Ambil ID dari URL
+    $id = $_GET['id'];
+
+    // Query SQL untuk mengambil data berdasarkan ID
+    $dataPh = ambilData('penawaran_harga', '*', "id_ph = $id");
+
+    // Periksa apakah ada hasil dari query
+    if (!empty($dataPh)) {
+        // Ambil nilai dari hasil query
+        $row = $dataPh[0]; // Karena Anda hanya mengambil satu baris data
+
+        // Assign nilai-nilai ke variabel
+        $noPh = strtoupper($row['no_ph']);
+        $tanggal = $row['tanggal'];
+        $pengirim = $row['id_pengirim'];
+        $penerima = $row['id_penerima'];
+        $kontakUp = $row['contact_person'];
+        $logo = $row['kop_surat'];
+
+        // Ambil data pengirim
+        $dataPengirim = ambilData('data_kontak_internal', '*', "id_kontak = $pengirim");
+        if (!empty($dataPengirim)) {
+            // Ambil nilai dari hasil query
+            $row = $dataPengirim[0]; // Karena Anda hanya mengambil satu baris data
+
+            $namaPengirim = strtoupper($row['nama']);
+
+            $alamatPengirim = ucwords($row['alamat']);
+
+            // Pecah string alamat menjadi bagian-bagian
+            $alamatParts = explode(" / ", $alamatPengirim);
+            
+            // Ambil kota pengirim dari alamat
+            $kotaPengirim = $alamatParts[2];
+            
+            $kecamatan = "Kec. " . $alamatParts[1]; // Tambahkan "Kec." sebelum kecamatan
+            $kota = "Kab. " . $alamatParts[2]; // Tambahkan "Kab." sebelum kota
+            
+            // Modifikasi kecamatan dan kota di array alamatParts
+            $alamatParts[1] = $kecamatan;
+            $alamatParts[2] = $kota;
+            
+            // Menggabungkan kembali array dengan tanda koma
+            $alamatPengirimFormat = implode(", ", $alamatParts);
+            
+            $noTelpPengirim = $row['no_telp'];
+            $emailPengirim = $row['email'];
+        }
+        
+        // Ambil data penerima
+        $dataPenerima = ambilData('data_pelanggan', 'nama_pelanggan, alamat', "id_pelanggan = $penerima");
+        if (!empty($dataPenerima)) {
+            // Ambil nilai dari hasil query
+            $row = $dataPenerima[0]; // Karena Anda hanya mengambil satu baris data
+
+            $namaPenerima = strtoupper($row['nama_pelanggan']);
+            $alamatPenerima = ucwords($row['alamat']);
+        }
+        
+        // Ambil data contact person (UP)
+        $dataKontakUP = ambilData('data_kontak_mitra', 'nama_mitra, jenis_kelamin', "id_mitra = $kontakUp");
+        if (!empty($dataKontakUP)) {
+            // Ambil nilai dari hasil query
+            $row = $dataKontakUP[0]; // Karena Anda hanya mengambil satu baris data
+
+            $namaKontakUP = ucwords($row['nama_mitra']);
+            $jenisKelaminKontakUP = ucwords($row['jenis_kelamin']);
+
+            // Tentukan panggilan berdasarkan jenis kelamin
+            if ($jenisKelaminKontakUP == "L") {
+                $panggilanTertentu = "Bpk.";
+            } elseif ($jenisKelaminKontakUP == "P") {
+                $panggilanTertentu = "Ibu";
+            } else {
+                $panggilanTertentu = "";
+            }
+
+            // Jika $panggilanTertentu tidak kosong, tambahkan ke output
+            if (!empty($panggilanTertentu)) {
+                $kontakUP = "$panggilanTertentu $namaKontakUP";
+            } else {
+                $kontakUP = $namaKontakUP;
+            }
+        }
+        
+    } else {
+        // Tidak ada data yang ditemukan
+        echo "Data tidak ditemukan.";
+    }
+}
 
 // Mengambil semua data dari tabel "data_produk"
 $dataProduk = ambilData('data_produk', '*');
@@ -40,163 +132,100 @@ $dataProduk = ambilData('data_produk', '*');
         </div>
 
         <div class="main-content-body">
-            <div class="form-wrapper">
-                <form action="proses.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-                    <div class="form-row lg kop-surat">
-                        <div class="form-group sm header-logo">
-                            <label for="file-upload" id="logo-label" class="custom-file-upload">
-                                <span class="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
-                                        width="24">
-                                        <path
-                                            d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
-                                    </svg>
-                                </span>
-                                Unggah Logo
-                            </label>
-
-                            <!-- Input Logo -->
-                            <input type="file" id="file-upload" name="logo" accept="image/*"
-                                onchange="previewImage(event)" required>
+            <div class="doc-preview-wrapper">
+                <div class="doc-preview">
+                    <div class="row lg kop-surat">
+                        <div class="preview-group sm header-logo">
 
                             <!-- Preview gambar akan ditampilkan di sini -->
-                            <div id="image-preview"></div>
+                            <div id="image-preview">
+                                <img src="../<?= $logo; ?>" alt="">
+                            </div>
                             <div class="overlay"></div>
+
                         </div>
 
-                        <div class="form-group lg header-content">
+                        <div class="preview-group lg header-content">
                             <!-- Preview konten header akan ditampilkan di sini -->
-                            <div id="header-content-preview"></div>
+                            <div id="header-content-preview">
+                                <h1><?= $namaPengirim ?></h1>
+                                <p><?= $alamatPengirimFormat ?></p>
+                                <p><?= "Telp: $noTelpPengirim Email: $emailPengirim" ?></p>
+                            </div>
                             <div class="overlay"></div>
+                        </div>
+                    </div>
 
-                            <div class="header-content-input">
-                                <label>Pengirim</label>
-                                <div class="dropdown">
-                                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        - Pilih -
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                        id="dropdownPengirim">
-                                        <!-- Looping data pengirim-->
-                                        <?php
-                                        // mengambil data dari tabel "data_pengirim" dengan id_pengirim
-                                        $dataPhPengirim = ambilData('data_kontak_internal', 'id_kontak, nama');
-                                        if ($dataPhPengirim){   
-                                            foreach ($dataPhPengirim as $row) {
-                                                echo '<a class="dropdown-item" data-value="' . $row['id_kontak'] . '">' . strtoupper($row['id_kontak']) . " " . strtoupper($row['nama']) . '</a>';
-                                            }
-                                        }
-                                        ?>
-                                    </div>
-                                    <input type="hidden" name="pengirim" id="pengirim" value="">
-                                    <div id="pengirim-error" class="error-message"></div>
-                                </div>
+                    <div class="row">
+                        <div class="preview-group">
+                            <div class="preview-box">
+                                <p><span class="tab sm">No</span>: <?= $noPh ?></p>
+                                <p><span class="tab sm">Hal</span>: Penawaran Harga</p>
+                            </div>
+
+                            <div class="preview-box">
+                                <p>Kepada Yth.</p>
+                                <p><?= $namaPenerima ?></p>
+                                <p><?= $alamatPenerima ?></p>
+                                <p><span class="tab sm">UP</span>: <?= $kontakUP ?>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="preview-group">
+                            <div class="preview-box right">
+                                <p><?= $kotaPengirim . ", " . $tanggal ?></p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <div class="input-data-readonly">
-                                <!-- Input nomor penawaran harga yang akan diisi secara otomatis -->
-                                <label>No.<span>:</span></label>
-                                <div class="input-data">
-                                    <input style="pointer-events: none;" type="text" id="no_ph" name="no_ph" readonly>
-                                    <div class="underline"></div>
-                                </div>
+                    <div class="row">
+                        <div class="preview-group lg">
+                            <div class="preview-box">
+                                <p><span class="tab sm">No</span>: <?= $noPh ?></p>
+                                <p><span class="tab sm">Hal</span>: Penawaran Harga</p>
                             </div>
-
-                            <label>Penerima</label>
-                            <div class="dropdown">
-                                <button class="dropdown-toggle" type="button" id="dropdownMenuButtonPenerima"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    - Pilih -
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonPenerima">
-                                    <!-- Looping data pelanggan-->
-                                    <?php
-                                // mengambil data dari tabel "data_pelanggan" dengan id_pelanggan
-                                $dataPhPenerima = ambilData('data_pelanggan', 'id_pelanggan, nama_pelanggan');
-                                if ($dataPhPenerima){
-                                    foreach ($dataPhPenerima as $row) {
-                                        echo '<a class="dropdown-item" data-value="' . $row['id_pelanggan'] . '">' . strtoupper($row['id_pelanggan']) . " " . strtoupper($row['nama_pelanggan']) . '</a>';
-                                    }
-                                }
-                                ?>
-                                </div>
-                                <input type="hidden" name="penerima" id="penerima" value="">
-                                <div id="penerima-error" class="error-message"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="tanggal">Tanggal</label>
-                            <div class="input-data">
-                                <input type="date" id="tanggal" name="tanggal" autofocus required>
-                                <div class="underline"></div>
-                            </div>
-
-                            <label>Contact Person (UP)</label>
-                            <div class="dropdown">
-                                <button class="dropdown-toggle" type="button" id="dropdownMenuButtonKontak"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    - Pilih -
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonKontak">
-                                    <!-- Looping data kontak_perusahaan-->
-                                    <?php
-                                // mengambil data dari tabel "data_kontak_internal" dengan id_kontak_perusahaan
-                                $dataPhUP = ambilData('data_kontak_mitra', 'id_mitra, nama_mitra');
-                                if ($dataPhUP){
-                                    foreach ($dataPhUP as $row) {
-                                        echo '<a class="dropdown-item" data-value="' . $row['id_mitra'] . '">' . strtoupper($row['id_mitra']) . " " . strtoupper($row['nama_mitra']) . '</a>';
-                                    }
-                                }
-                                ?>
-                                </div>
-                                <input type="hidden" name="kontak_up" id="kontak" value="">
-                                <div id="kontak-error" class="error-message"></div>
-                            </div>
-
-                            <input type="hidden" name="status" value="<?= "draft"; ?>">
-
-                            <input type="submit" value="Simpan" class="success-btn" name="add">
                         </div>
                     </div>
-                </form>
-            </div>
 
 
-            <div class="table dynamic-table">
-                <div class="table-body">
-                    <table id="dataTable">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th>Kuantitas</th>
-                                <th>Harga</th>
-                                <th>Total</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <form action=""></form>
-                            <tr class="data-row">
-                                <td>
-                                    tes
-                                </td>
-                                <td><input type="text" name="phone" class="phone"></td>
-                                <td><input type="text" name="phone" class="phone"></td>
-                                <td><input type="text" name="phone" class="phone"></td>
-                                <td><button class="deleteRow" style="display:none;">Delete</button><button
-                                        class="addRow">Add</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                    <input type="submit" value="Simpan" class="success-btn" name="add">
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <div class="table dynamic-table">
+        <div class="table-body">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Produk</th>
+                        <th>Kuantitas</th>
+                        <th>Harga</th>
+                        <th>Total</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form action=""></form>
+                    <tr class="data-row">
+                        <td>
+                            tes
+                        </td>
+                        <td><input type="text" name="phone" class="phone"></td>
+                        <td><input type="text" name="phone" class="phone"></td>
+                        <td><input type="text" name="phone" class="phone"></td>
+                        <td><button class="deleteRow" style="display:none;">Delete</button><button
+                                class="addRow">Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
     </div>
 </main>
 

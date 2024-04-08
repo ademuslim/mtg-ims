@@ -253,7 +253,6 @@ function ambilGambarDefaultDariDatabase(){
     return $gambar_default;
 }
 
-
 // Fungsi untuk menghasilkan nama file acak
 function generateRandomName($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

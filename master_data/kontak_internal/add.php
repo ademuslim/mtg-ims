@@ -50,9 +50,30 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
                             </div>
 
                             <label for="alamat">Alamat</label>
-                            <div class="input-data">
-                                <input type="text" id="alamat" name="alamat" required>
-                                <div class="underline"></div>
+                            <div class="form-group-secondary">
+                                <div class="input-data">
+                                    <input type="text" name="jalan" placeholder="Nama Jalan / Desa / Kelurahan"
+                                        required>
+                                    <div class="underline"></div>
+                                </div>
+                                <div class="input-data">
+                                    <input type="text" name="kecamatan" placeholder="Kecamatan" required>
+                                    <div class="underline"></div>
+                                </div>
+                                <div class="input-data">
+                                    <input type="text" name="kota" placeholder="Kota / Kabupaten / Wilayah" required>
+                                    <div class="underline"></div>
+                                </div>
+                                <div class="input-data">
+                                    <input type="text" name="provinsi" placeholder="Provinsi" required>
+                                    <div class="underline"></div>
+                                </div>
+
+                                <div class="input-data">
+                                    <input type="text" class="last-input" name="kodepos" placeholder="Kode Pos"
+                                        required>
+                                    <div class="underline"></div>
+                                </div>
                             </div>
 
                             <label for="no_telp">No. Telepon</label>
@@ -60,15 +81,15 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
                                 <input type="text" id="no_telp" name="no_telp" required>
                                 <div class="underline"></div>
                             </div>
+                        </div>
 
+                        <div class="form-group">
                             <label for="email">Email</label>
                             <div class="input-data">
                                 <input type="email" id="email" name="email" required>
                                 <div class="underline"></div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
                             <label for="tanggal">Tanggal Terdaftar</label>
                             <div class="input-data">
                                 <input type="date" id="tanggal" name="tanggal" required>

@@ -6,9 +6,17 @@ include '../../_config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Periksa apakah tombol "Simpan" ditekan
     if (isset($_POST["add"])) {
-        // Ambil nilai yang dikirim dari form
+        /// Ambil nilai yang dikirim dari form
         $nama = strtolower($_POST["nama"]);
-        $alamat = strtolower($_POST["alamat"]);
+
+        $jalan = $_POST["jalan"];
+        $kecamatan = $_POST["kecamatan"];
+        $kota = $_POST["kota"];
+        $provinsi = $_POST["provinsi"];
+        $kodepos = $_POST["kodepos"];
+        // Susun alamat lengkap dengan nilai di dalamnya, dipisahkan dengan tanda /
+        $alamatLengkap = "$jalan / $kecamatan / $kota / $provinsi / $kodepos";
+
         $noTelp = $_POST["no_telp"];
         $email = strtolower($_POST["email"]);
         $tanggal = $_POST["tanggal"];
@@ -34,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
         // Fungsi untuk menambahkan data kontak ke dalam tabel
-        tambahData("data_kontak_internal", ["nama", "alamat", "no_telp", "email", "tanggal_terdaftar", "keterangan", "status"], [$nama, $alamat, $noTelp, $email, $tanggal, $keterangan, $status], "kontak");
+        tambahData("data_kontak_internal", ["nama", "alamat", "no_telp", "email", "tanggal_terdaftar", "keterangan", "status"], [$nama, $alamatLengkap, $noTelp, $email, $tanggal, $keterangan, $status], "kontak");
             
     }
 
@@ -43,7 +51,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Ambil nilai yang dikirim dari form
         $idKontak = $_POST["id_kontak"]; // ID kontak yang akan diedit
         $nama = strtolower($_POST["nama"]);
-        $alamat = strtolower($_POST["alamat"]);
+        
+        $jalan = $_POST["jalan"];
+        $kecamatan = $_POST["kecamatan"];
+        $kota = $_POST["kota"];
+        $provinsi = $_POST["provinsi"];
+        $kodepos = $_POST["kodepos"];
+        // Susun alamat lengkap dengan nilai di dalamnya, dipisahkan dengan tanda /
+        $alamatLengkap = "$jalan / $kecamatan / $kota / $provinsi / $kodepos";
+
         $noTelp = $_POST["no_telp"];
         $email = strtolower($_POST["email"]);
         $tanggal = $_POST["tanggal"];
@@ -53,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $tableName = "data_kontak_internal";
         $updateValues = [
             "nama" => $nama,
-            "alamat" => $alamat,
+            "alamat" => $alamatLengkap,
             "no_telp" => $noTelp,
             "email" => $email,
             "tanggal_terdaftar" => $tanggal,

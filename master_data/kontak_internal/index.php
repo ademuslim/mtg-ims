@@ -91,14 +91,22 @@ $dataKontak = ambilData('data_kontak_internal', '*', null, 'id_kontak');
                         <tbody>
                             <tr>
                                 <?php
-                            // Jika data berhasil diambil
-                            if ($dataKontak){
-                                // Lakukan iterasi untuk setiap baris data
-                                foreach ($dataKontak as $row) {
-                            ?>
+                                // Jika data berhasil diambil
+                                if ($dataKontak){
+                                    // Lakukan iterasi untuk setiap baris data
+                                    foreach ($dataKontak as $row) {
+                                ?>
                                 <td><?= strtoupper($row['id_kontak']); ?></td>
                                 <td><?= strtoupper($row['nama']); ?></td>
-                                <td><?= strtoupper($row['alamat']); ?></td>
+
+                                <?php
+                                $alamat = $row['alamat'];
+                                // Memisahkan string berdasarkan tanda garis miring (/) menjadi array
+                                $alamatArray = explode(" / ", $alamat);
+                                // Menggabungkan kembali array dengan tanda koma
+                                $alamatFormat = implode(", ", $alamatArray);
+                                ?>
+                                <td><?= ucwords($alamatFormat); ?></td>
                                 <td><?= strtoupper($row['no_telp']); ?></td>
                                 <td><?= $row['email']; ?></td>
                                 <td><?= $row['tanggal_terdaftar']; ?></td>
