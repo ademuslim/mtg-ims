@@ -8,10 +8,14 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
     exit;
 }
 
-$id = @$_GET['id'];
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $id = encryptor('decrypt', $id);
+} else {
+    $id = NULL;
+}
 
-// Mengambil data harga sesuai id
-$dataPelanggan = ambilData('data_pelanggan', '*', "id_pelanggan = '$id'");
+$data = ambilData('data_pelanggan', '*', "id_pelanggan = '$id'");
 ?>
 
 <main>
@@ -47,9 +51,9 @@ $dataPelanggan = ambilData('data_pelanggan', '*', "id_pelanggan = '$id'");
                     <div class="form-row">
                         <div class="form-group">
                             <?php
-                        if ($dataPelanggan) {
+                        if ($data) {
                             // Jika ditemukan, Anda dapat menggunakan data tersebut
-                            foreach ($dataPelanggan as $row) {
+                            foreach ($data as $row) {
 
                                 $idPelanggan = $row['id_pelanggan'];
                                 $nama = strtoupper($row["nama_pelanggan"]);

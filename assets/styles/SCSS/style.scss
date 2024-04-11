@@ -321,12 +321,10 @@
 }
 
 // TABLE
-.table {
+.table-wrapper {
   width: 100%;
-  // min-height: 100%;
-  // overflow: hidden;
   position: relative;
-  background-color: #fff;
+  background-color: red;
   padding: 2rem;
 }
 
@@ -347,10 +345,6 @@
   tbody tr td {
     font-size: 0.8rem;
   }
-}
-
-table {
-  width: 100%;
 }
 
 table,
@@ -408,8 +402,7 @@ tbody td .action {
 }
 
 // FORM INPUT + DOC PREVIEW
-.form-wrapper,
-.doc-preview-wrapper {
+.form-wrapper {
   overflow-y: auto;
   height: 100%;
   background-color: #fff;
@@ -424,8 +417,7 @@ tbody td .action {
     }
   }
 
-  form,
-  .doc-preview {
+  form {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -462,7 +454,7 @@ tbody td .action {
         top: 0;
         left: 0;
         position: absolute;
-        width: 100%;
+        max-width: 200px;
         height: 100%;
         z-index: 2;
       }
@@ -499,6 +491,10 @@ tbody td .action {
         h1 {
           font-size: 2.8rem;
         }
+        p {
+          font-size: 0.8rem;
+          font-weight: 700;
+        }
       }
       .overlay {
         position: absolute;
@@ -523,8 +519,7 @@ tbody td .action {
         width: 300px;
       }
     }
-    .form-row,
-    .row {
+    .form-row {
       display: flex;
       justify-content: space-between;
       gap: 4rem;
@@ -546,8 +541,7 @@ tbody td .action {
         }
       }
     }
-    .form-group,
-    .preview-group {
+    .form-group {
       width: 50%;
       &.lg {
         width: calc(100% - 140px);
@@ -570,68 +564,13 @@ tbody td .action {
         font-size: 0.9rem;
       }
 
-      .input-data {
-        height: 40px;
-        width: 100%;
-        margin-bottom: 2rem;
-        position: relative;
-        justify-content: center;
-        display: flex;
-        // Style untuk input form
-        input[type="text"],
-        input[type="date"],
-        input[type="number"],
-        input[type="email"],
-        select {
-          width: 100%; // Lebar input 100% dari parent
-          border: none;
-          height: 100%;
-          outline: none;
-          padding-left: 0.5rem;
-          border-bottom: 1px solid silver;
-          background-color: #f2f8fc;
-          box-sizing: border-box; // Box sizing
-          margin-bottom: 2rem; // Jarak antar input
-          display: block;
-          &:focus ~ .underline {
-            background-color: #1c80cf;
-            width: 100%;
-          }
-        }
-        .underline {
-          position: absolute;
-          width: 0;
-          bottom: 0;
-          height: 2px;
-          transition: width 0.2s;
-        }
-      }
-
       textarea {
         width: 100%;
         height: 50px;
         margin-bottom: 2rem;
       }
 
-      input[type="submit"] {
-        background-color: #1c80cf;
-        font-size: 1rem;
-        text-transform: uppercase;
-        color: #fff;
-        width: 50%;
-        margin-left: 50%;
-        padding: 8px; // Padding input
-        border: 1px solid #ccc; // Border input
-        border-radius: 4px; // Border radius input
-        box-sizing: border-box; // Box sizing
-        cursor: pointer;
-        margin-top: 26.33px;
-        &:hover {
-          background-color: #0d6ab0;
-        }
-      }
-      .input-data-readonly,
-      .preview-box {
+      .input-data-readonly {
         display: flex;
         align-items: center;
         margin-top: calc(17.33px + 5px);
@@ -651,75 +590,19 @@ tbody td .action {
           }
         }
       }
-      .preview-box {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-block: 1.5rem;
-        p {
-          margin-bottom: 0.8rem;
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
-        .tab {
-          display: inline-block;
-          &.sm {
-            width: 50px;
-          }
-        }
-        &.right {
-          align-items: flex-end;
-        }
-      }
       .form-group-secondary {
-        width: 100%;
-        flex-wrap: wrap;
         display: flex;
-
-        .input-data {
-          flex: 1 1 50%; /* Setiap input-data akan memenuhi 50% lebar parent */
-
-          box-sizing: border-box;
-          label {
-            font-size: 0.8rem;
-          }
-          &:nth-child(even) {
-            padding-left: 0.5rem; /* Tambahkan padding hanya pada input-data child genap */
-          }
-          &:nth-child(odd) {
-            padding-right: 0.5rem; /* Tambahkan padding hanya pada input-data child genap */
-          }
-          &:last-child {
-            padding: 0;
-          }
-          input:focus ~ .underline {
-            width: calc(100% - 0.5rem);
-          }
-          .last-input:focus ~ .underline {
-            width: 100%;
-          }
+        width: 100%;
+        flex-direction: column;
+        .label-wrapper {
+          display: flex;
+          gap: 6px;
         }
-        &.form-edit {
-          display: grid;
-          width: 100%;
-          grid-template-columns: 30% 70%; /* Kolom pertama 20%, kolom kedua 80% */
-          .form-edit-labels {
-            display: flex;
-            flex-direction: column;
-            label {
-              height: 40px;
-              display: flex;
-              align-items: center;
-              margin-bottom: 2rem; /* Memberi jarak antar label */
-            }
-          }
-          .form-edit-inputs {
-            .input-data {
-              padding: 0;
-              input:focus ~ .underline {
-                width: 100%;
-              }
-            }
+        .input-wrapper {
+          display: flex;
+          gap: 1rem;
+          .input-data.md {
+            width: 35%;
           }
         }
       }
@@ -729,11 +612,66 @@ tbody td .action {
         }
       }
     }
-
     .kop-surat {
       padding-bottom: 1rem;
       border-bottom: 2px solid black;
     }
+  }
+}
+
+.input-data {
+  height: 40px;
+  width: 100%;
+  margin-bottom: 2rem;
+  position: relative;
+  justify-content: center;
+  display: flex;
+  // Style untuk input form
+  input[type="text"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="number"],
+  input[type="email"],
+  select {
+    width: 100%; // Lebar input 100% dari parent
+    border: none;
+    height: 100%;
+    outline: none;
+    padding-left: 0.5rem;
+    border-bottom: 1px solid silver;
+    background-color: #f2f8fc;
+    box-sizing: border-box; // Box sizing
+    margin-bottom: 2rem; // Jarak antar input
+    display: block;
+    &:focus ~ .underline {
+      background-color: #1c80cf;
+      width: 100%;
+    }
+  }
+  .underline {
+    position: absolute;
+    width: 0;
+    bottom: 0;
+    height: 2px;
+    transition: width 0.2s;
+  }
+}
+
+input[type="submit"] {
+  background-color: #1c80cf;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #fff;
+  width: 50%;
+  margin-left: 50%;
+  padding: 8px; // Padding input
+  border: 1px solid #ccc; // Border input
+  border-radius: 4px; // Border radius input
+  box-sizing: border-box; // Box sizing
+  cursor: pointer;
+  margin-top: 26.33px;
+  &:hover {
+    background-color: #0d6ab0;
   }
 }
 
@@ -894,21 +832,11 @@ td.form-add {
   }
 }
 
-.main-content.fixed {
-  overflow: hidden;
-  height: 100vh;
-}
 .main-content.dashboard {
   gap: 0;
   padding-bottom: 1rem;
 }
 
-.main-content-body.fixed {
-  overflow: hidden;
-  height: calc(100% - (4rem + 62.67px));
-  background-color: #f2f8fc;
-  box-shadow: none;
-}
 .main-content-body.dashboard {
   background-color: #f2f8fc;
   box-shadow: none;
@@ -918,7 +846,7 @@ td.form-add {
 
 .table-view {
   padding: 0;
-  background-color: #f2f8fc;
+  background-color: blue;
 
   table {
     border-collapse: separate; /* Membuat tepi sel terpisah */

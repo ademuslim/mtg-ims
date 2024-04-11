@@ -341,10 +341,10 @@ body {
   font-weight: 700;
 }
 
-.table {
+.table-wrapper {
   width: 100%;
   position: relative;
-  background-color: #fff;
+  background-color: red;
   padding: 2rem;
 }
 
@@ -364,10 +364,6 @@ body {
 }
 .table-body tbody tr td {
   font-size: 0.8rem;
-}
-
-table {
-  width: 100%;
 }
 
 table,
@@ -420,54 +416,39 @@ tbody td .action a:last-child {
   border: none;
 }
 
-.form-wrapper,
-.doc-preview-wrapper {
+.form-wrapper {
   overflow-y: auto;
   height: 100%;
   background-color: #fff;
   padding: 2rem;
 }
-.form-wrapper .form-title,
-.doc-preview-wrapper .form-title {
+.form-wrapper .form-title {
   display: flex;
   justify-content: space-between;
   height: 30px;
   margin-bottom: 10px;
 }
-.form-wrapper .form-title h2,
-.doc-preview-wrapper .form-title h2 {
+.form-wrapper .form-title h2 {
   font-size: 1.1rem;
 }
-.form-wrapper form,
-.form-wrapper .doc-preview,
-.doc-preview-wrapper form,
-.doc-preview-wrapper .doc-preview {
+.form-wrapper form {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 2rem;
   min-height: calc(100% - 40px);
 }
-.form-wrapper form .header-logo,
-.form-wrapper .doc-preview .header-logo,
-.doc-preview-wrapper form .header-logo,
-.doc-preview-wrapper .doc-preview .header-logo {
+.form-wrapper form .header-logo {
   border: 1px dotted #1c80cf;
   position: relative;
   overflow: hidden;
   height: 120px;
 }
-.form-wrapper form .header-logo input[type=file],
-.form-wrapper .doc-preview .header-logo input[type=file],
-.doc-preview-wrapper form .header-logo input[type=file],
-.doc-preview-wrapper .doc-preview .header-logo input[type=file] {
+.form-wrapper form .header-logo input[type=file] {
   opacity: 0;
   height: 100%;
 }
-.form-wrapper form .header-logo .custom-file-upload,
-.form-wrapper .doc-preview .header-logo .custom-file-upload,
-.doc-preview-wrapper form .header-logo .custom-file-upload,
-.doc-preview-wrapper .doc-preview .header-logo .custom-file-upload {
+.form-wrapper form .header-logo .custom-file-upload {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -482,24 +463,18 @@ tbody td .action a:last-child {
   padding: 6px 12px;
   cursor: pointer;
 }
-.form-wrapper form .header-logo #image-preview,
-.form-wrapper .doc-preview .header-logo #image-preview,
-.doc-preview-wrapper form .header-logo #image-preview,
-.doc-preview-wrapper .doc-preview .header-logo #image-preview {
+.form-wrapper form .header-logo #image-preview {
   display: flex;
   justify-content: center;
   align-items: center;
   top: 0;
   left: 0;
   position: absolute;
-  width: 100%;
+  max-width: 200px;
   height: 100%;
   z-index: 2;
 }
-.form-wrapper form .header-logo .overlay,
-.form-wrapper .doc-preview .header-logo .overlay,
-.doc-preview-wrapper form .header-logo .overlay,
-.doc-preview-wrapper .doc-preview .header-logo .overlay {
+.form-wrapper form .header-logo .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -508,17 +483,11 @@ tbody td .action a:last-child {
   background-color: rgba(255, 255, 255, 0.5); /* Warna putih dengan opacity 0.5 */
   z-index: 3;
 }
-.form-wrapper form .header-content,
-.form-wrapper .doc-preview .header-content,
-.doc-preview-wrapper form .header-content,
-.doc-preview-wrapper .doc-preview .header-content {
+.form-wrapper form .header-content {
   position: relative;
   border: 1px dotted #1c80cf;
 }
-.form-wrapper form .header-content #header-content-preview,
-.form-wrapper .doc-preview .header-content #header-content-preview,
-.doc-preview-wrapper form .header-content #header-content-preview,
-.doc-preview-wrapper .doc-preview .header-content #header-content-preview {
+.form-wrapper form .header-content #header-content-preview {
   position: absolute;
   display: flex;
   color: #000;
@@ -531,16 +500,14 @@ tbody td .action a:last-child {
   width: 100%;
   height: 100%;
 }
-.form-wrapper form .header-content #header-content-preview h1,
-.form-wrapper .doc-preview .header-content #header-content-preview h1,
-.doc-preview-wrapper form .header-content #header-content-preview h1,
-.doc-preview-wrapper .doc-preview .header-content #header-content-preview h1 {
+.form-wrapper form .header-content #header-content-preview h1 {
   font-size: 2.8rem;
 }
-.form-wrapper form .header-content .overlay,
-.form-wrapper .doc-preview .header-content .overlay,
-.doc-preview-wrapper form .header-content .overlay,
-.doc-preview-wrapper .doc-preview .header-content .overlay {
+.form-wrapper form .header-content #header-content-preview p {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.form-wrapper form .header-content .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -549,10 +516,7 @@ tbody td .action a:last-child {
   background-color: rgba(255, 255, 255, 0.5); /* Warna putih dengan opacity 0.5 */
   z-index: 2;
 }
-.form-wrapper form .header-content .header-content-input,
-.form-wrapper .doc-preview .header-content .header-content-input,
-.doc-preview-wrapper form .header-content .header-content-input,
-.doc-preview-wrapper .doc-preview .header-content .header-content-input {
+.form-wrapper form .header-content .header-content-input {
   position: absolute;
   bottom: 4px;
   right: 4px;
@@ -560,140 +524,98 @@ tbody td .action a:last-child {
   height: 60px;
   width: 300px;
 }
-.form-wrapper form .form-row,
-.form-wrapper form .row,
-.form-wrapper .doc-preview .form-row,
-.form-wrapper .doc-preview .row,
-.doc-preview-wrapper form .form-row,
-.doc-preview-wrapper form .row,
-.doc-preview-wrapper .doc-preview .form-row,
-.doc-preview-wrapper .doc-preview .row {
+.form-wrapper form .form-row {
   display: flex;
   justify-content: space-between;
   gap: 4rem;
 }
-.form-wrapper form .form-row.lg,
-.form-wrapper form .row.lg,
-.form-wrapper .doc-preview .form-row.lg,
-.form-wrapper .doc-preview .row.lg,
-.doc-preview-wrapper form .form-row.lg,
-.doc-preview-wrapper form .row.lg,
-.doc-preview-wrapper .doc-preview .form-row.lg,
-.doc-preview-wrapper .doc-preview .row.lg {
+.form-wrapper form .form-row.lg {
   gap: 1rem;
 }
-.form-wrapper form .form-row.no-dokumen,
-.form-wrapper form .row.no-dokumen,
-.form-wrapper .doc-preview .form-row.no-dokumen,
-.form-wrapper .doc-preview .row.no-dokumen,
-.doc-preview-wrapper form .form-row.no-dokumen,
-.doc-preview-wrapper form .row.no-dokumen,
-.doc-preview-wrapper .doc-preview .form-row.no-dokumen,
-.doc-preview-wrapper .doc-preview .row.no-dokumen {
+.form-wrapper form .form-row.no-dokumen {
   justify-content: center;
 }
-.form-wrapper form .form-row.no-dokumen .form-group,
-.form-wrapper form .row.no-dokumen .form-group,
-.form-wrapper .doc-preview .form-row.no-dokumen .form-group,
-.form-wrapper .doc-preview .row.no-dokumen .form-group,
-.doc-preview-wrapper form .form-row.no-dokumen .form-group,
-.doc-preview-wrapper form .row.no-dokumen .form-group,
-.doc-preview-wrapper .doc-preview .form-row.no-dokumen .form-group,
-.doc-preview-wrapper .doc-preview .row.no-dokumen .form-group {
+.form-wrapper form .form-row.no-dokumen .form-group {
   display: flex;
   align-items: center;
 }
-.form-wrapper form .form-row.no-dokumen .form-group label,
-.form-wrapper form .row.no-dokumen .form-group label,
-.form-wrapper .doc-preview .form-row.no-dokumen .form-group label,
-.form-wrapper .doc-preview .row.no-dokumen .form-group label,
-.doc-preview-wrapper form .form-row.no-dokumen .form-group label,
-.doc-preview-wrapper form .row.no-dokumen .form-group label,
-.doc-preview-wrapper .doc-preview .form-row.no-dokumen .form-group label,
-.doc-preview-wrapper .doc-preview .row.no-dokumen .form-group label {
+.form-wrapper form .form-row.no-dokumen .form-group label {
   margin-right: 0.5rem;
 }
-.form-wrapper form .form-row.no-dokumen .form-group .input-data,
-.form-wrapper form .row.no-dokumen .form-group .input-data,
-.form-wrapper .doc-preview .form-row.no-dokumen .form-group .input-data,
-.form-wrapper .doc-preview .row.no-dokumen .form-group .input-data,
-.doc-preview-wrapper form .form-row.no-dokumen .form-group .input-data,
-.doc-preview-wrapper form .row.no-dokumen .form-group .input-data,
-.doc-preview-wrapper .doc-preview .form-row.no-dokumen .form-group .input-data,
-.doc-preview-wrapper .doc-preview .row.no-dokumen .form-group .input-data {
+.form-wrapper form .form-row.no-dokumen .form-group .input-data {
   width: 300px;
   margin-bottom: 0;
 }
-.form-wrapper form .form-group,
-.form-wrapper form .preview-group,
-.form-wrapper .doc-preview .form-group,
-.form-wrapper .doc-preview .preview-group,
-.doc-preview-wrapper form .form-group,
-.doc-preview-wrapper form .preview-group,
-.doc-preview-wrapper .doc-preview .form-group,
-.doc-preview-wrapper .doc-preview .preview-group {
+.form-wrapper form .form-group {
   width: 50%;
 }
-.form-wrapper form .form-group.lg,
-.form-wrapper form .preview-group.lg,
-.form-wrapper .doc-preview .form-group.lg,
-.form-wrapper .doc-preview .preview-group.lg,
-.doc-preview-wrapper form .form-group.lg,
-.doc-preview-wrapper form .preview-group.lg,
-.doc-preview-wrapper .doc-preview .form-group.lg,
-.doc-preview-wrapper .doc-preview .preview-group.lg {
+.form-wrapper form .form-group.lg {
   width: calc(100% - 140px);
 }
-.form-wrapper form .form-group.sm,
-.form-wrapper form .preview-group.sm,
-.form-wrapper .doc-preview .form-group.sm,
-.form-wrapper .doc-preview .preview-group.sm,
-.doc-preview-wrapper form .form-group.sm,
-.doc-preview-wrapper form .preview-group.sm,
-.doc-preview-wrapper .doc-preview .form-group.sm,
-.doc-preview-wrapper .doc-preview .preview-group.sm {
+.form-wrapper form .form-group.sm {
   width: 150px;
 }
-.form-wrapper form .form-group .form-info,
-.form-wrapper form .preview-group .form-info,
-.form-wrapper .doc-preview .form-group .form-info,
-.form-wrapper .doc-preview .preview-group .form-info,
-.doc-preview-wrapper form .form-group .form-info,
-.doc-preview-wrapper form .preview-group .form-info,
-.doc-preview-wrapper .doc-preview .form-group .form-info,
-.doc-preview-wrapper .doc-preview .preview-group .form-info {
+.form-wrapper form .form-group .form-info {
   margin-bottom: 1.1rem;
 }
-.form-wrapper form .form-group .form-info .title,
-.form-wrapper form .preview-group .form-info .title,
-.form-wrapper .doc-preview .form-group .form-info .title,
-.form-wrapper .doc-preview .preview-group .form-info .title,
-.doc-preview-wrapper form .form-group .form-info .title,
-.doc-preview-wrapper form .preview-group .form-info .title,
-.doc-preview-wrapper .doc-preview .form-group .form-info .title,
-.doc-preview-wrapper .doc-preview .preview-group .form-info .title {
+.form-wrapper form .form-group .form-info .title {
   margin-bottom: 0.5rem;
 }
-.form-wrapper form .form-group label,
-.form-wrapper form .preview-group label,
-.form-wrapper .doc-preview .form-group label,
-.form-wrapper .doc-preview .preview-group label,
-.doc-preview-wrapper form .form-group label,
-.doc-preview-wrapper form .preview-group label,
-.doc-preview-wrapper .doc-preview .form-group label,
-.doc-preview-wrapper .doc-preview .preview-group label {
+.form-wrapper form .form-group label {
   display: block;
   margin-bottom: 5px;
   font-size: 0.9rem;
 }
-.form-wrapper form .form-group .input-data,
-.form-wrapper form .preview-group .input-data,
-.form-wrapper .doc-preview .form-group .input-data,
-.form-wrapper .doc-preview .preview-group .input-data,
-.doc-preview-wrapper form .form-group .input-data,
-.doc-preview-wrapper form .preview-group .input-data,
-.doc-preview-wrapper .doc-preview .form-group .input-data,
-.doc-preview-wrapper .doc-preview .preview-group .input-data {
+.form-wrapper form .form-group textarea {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 2rem;
+}
+.form-wrapper form .form-group .input-data-readonly {
+  display: flex;
+  align-items: center;
+  margin-top: 22.33px;
+  margin-bottom: 2rem;
+  border: 1px dotted #1c80cf;
+}
+.form-wrapper form .form-group .input-data-readonly label {
+  display: flex;
+  justify-content: space-between;
+  width: 60px;
+  margin: 0;
+}
+.form-wrapper form .form-group .input-data-readonly .input-data {
+  margin-bottom: 0;
+}
+.form-wrapper form .form-group .input-data-readonly .input-data input[type=text] {
+  background-color: #fff;
+  border: none;
+}
+.form-wrapper form .form-group .form-group-secondary {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.form-wrapper form .form-group .form-group-secondary .label-wrapper {
+  display: flex;
+  gap: 6px;
+}
+.form-wrapper form .form-group .form-group-secondary .input-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+.form-wrapper form .form-group .form-group-secondary .input-wrapper .input-data.md {
+  width: 35%;
+}
+.form-wrapper form .form-group .preview-group.lg {
+  width: 100%;
+}
+.form-wrapper form .kop-surat {
+  padding-bottom: 1rem;
+  border-bottom: 2px solid black;
+}
+
+.input-data {
   height: 40px;
   width: 100%;
   margin-bottom: 2rem;
@@ -701,46 +623,12 @@ tbody td .action a:last-child {
   justify-content: center;
   display: flex;
 }
-.form-wrapper form .form-group .input-data input[type=text],
-.form-wrapper form .form-group .input-data input[type=date],
-.form-wrapper form .form-group .input-data input[type=number],
-.form-wrapper form .form-group .input-data input[type=email],
-.form-wrapper form .form-group .input-data select,
-.form-wrapper form .preview-group .input-data input[type=text],
-.form-wrapper form .preview-group .input-data input[type=date],
-.form-wrapper form .preview-group .input-data input[type=number],
-.form-wrapper form .preview-group .input-data input[type=email],
-.form-wrapper form .preview-group .input-data select,
-.form-wrapper .doc-preview .form-group .input-data input[type=text],
-.form-wrapper .doc-preview .form-group .input-data input[type=date],
-.form-wrapper .doc-preview .form-group .input-data input[type=number],
-.form-wrapper .doc-preview .form-group .input-data input[type=email],
-.form-wrapper .doc-preview .form-group .input-data select,
-.form-wrapper .doc-preview .preview-group .input-data input[type=text],
-.form-wrapper .doc-preview .preview-group .input-data input[type=date],
-.form-wrapper .doc-preview .preview-group .input-data input[type=number],
-.form-wrapper .doc-preview .preview-group .input-data input[type=email],
-.form-wrapper .doc-preview .preview-group .input-data select,
-.doc-preview-wrapper form .form-group .input-data input[type=text],
-.doc-preview-wrapper form .form-group .input-data input[type=date],
-.doc-preview-wrapper form .form-group .input-data input[type=number],
-.doc-preview-wrapper form .form-group .input-data input[type=email],
-.doc-preview-wrapper form .form-group .input-data select,
-.doc-preview-wrapper form .preview-group .input-data input[type=text],
-.doc-preview-wrapper form .preview-group .input-data input[type=date],
-.doc-preview-wrapper form .preview-group .input-data input[type=number],
-.doc-preview-wrapper form .preview-group .input-data input[type=email],
-.doc-preview-wrapper form .preview-group .input-data select,
-.doc-preview-wrapper .doc-preview .form-group .input-data input[type=text],
-.doc-preview-wrapper .doc-preview .form-group .input-data input[type=date],
-.doc-preview-wrapper .doc-preview .form-group .input-data input[type=number],
-.doc-preview-wrapper .doc-preview .form-group .input-data input[type=email],
-.doc-preview-wrapper .doc-preview .form-group .input-data select,
-.doc-preview-wrapper .doc-preview .preview-group .input-data input[type=text],
-.doc-preview-wrapper .doc-preview .preview-group .input-data input[type=date],
-.doc-preview-wrapper .doc-preview .preview-group .input-data input[type=number],
-.doc-preview-wrapper .doc-preview .preview-group .input-data input[type=email],
-.doc-preview-wrapper .doc-preview .preview-group .input-data select {
+.input-data input[type=text],
+.input-data input[type=date],
+.input-data input[type=datetime-local],
+.input-data input[type=number],
+.input-data input[type=email],
+.input-data select {
   width: 100%;
   border: none;
   height: 100%;
@@ -752,83 +640,24 @@ tbody td .action a:last-child {
   margin-bottom: 2rem;
   display: block;
 }
-.form-wrapper form .form-group .input-data input[type=text]:focus ~ .underline,
-.form-wrapper form .form-group .input-data input[type=date]:focus ~ .underline,
-.form-wrapper form .form-group .input-data input[type=number]:focus ~ .underline,
-.form-wrapper form .form-group .input-data input[type=email]:focus ~ .underline,
-.form-wrapper form .form-group .input-data select:focus ~ .underline,
-.form-wrapper form .preview-group .input-data input[type=text]:focus ~ .underline,
-.form-wrapper form .preview-group .input-data input[type=date]:focus ~ .underline,
-.form-wrapper form .preview-group .input-data input[type=number]:focus ~ .underline,
-.form-wrapper form .preview-group .input-data input[type=email]:focus ~ .underline,
-.form-wrapper form .preview-group .input-data select:focus ~ .underline,
-.form-wrapper .doc-preview .form-group .input-data input[type=text]:focus ~ .underline,
-.form-wrapper .doc-preview .form-group .input-data input[type=date]:focus ~ .underline,
-.form-wrapper .doc-preview .form-group .input-data input[type=number]:focus ~ .underline,
-.form-wrapper .doc-preview .form-group .input-data input[type=email]:focus ~ .underline,
-.form-wrapper .doc-preview .form-group .input-data select:focus ~ .underline,
-.form-wrapper .doc-preview .preview-group .input-data input[type=text]:focus ~ .underline,
-.form-wrapper .doc-preview .preview-group .input-data input[type=date]:focus ~ .underline,
-.form-wrapper .doc-preview .preview-group .input-data input[type=number]:focus ~ .underline,
-.form-wrapper .doc-preview .preview-group .input-data input[type=email]:focus ~ .underline,
-.form-wrapper .doc-preview .preview-group .input-data select:focus ~ .underline,
-.doc-preview-wrapper form .form-group .input-data input[type=text]:focus ~ .underline,
-.doc-preview-wrapper form .form-group .input-data input[type=date]:focus ~ .underline,
-.doc-preview-wrapper form .form-group .input-data input[type=number]:focus ~ .underline,
-.doc-preview-wrapper form .form-group .input-data input[type=email]:focus ~ .underline,
-.doc-preview-wrapper form .form-group .input-data select:focus ~ .underline,
-.doc-preview-wrapper form .preview-group .input-data input[type=text]:focus ~ .underline,
-.doc-preview-wrapper form .preview-group .input-data input[type=date]:focus ~ .underline,
-.doc-preview-wrapper form .preview-group .input-data input[type=number]:focus ~ .underline,
-.doc-preview-wrapper form .preview-group .input-data input[type=email]:focus ~ .underline,
-.doc-preview-wrapper form .preview-group .input-data select:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .form-group .input-data input[type=text]:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .form-group .input-data input[type=date]:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .form-group .input-data input[type=number]:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .form-group .input-data input[type=email]:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .form-group .input-data select:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .preview-group .input-data input[type=text]:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .preview-group .input-data input[type=date]:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .preview-group .input-data input[type=number]:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .preview-group .input-data input[type=email]:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .preview-group .input-data select:focus ~ .underline {
+.input-data input[type=text]:focus ~ .underline,
+.input-data input[type=date]:focus ~ .underline,
+.input-data input[type=datetime-local]:focus ~ .underline,
+.input-data input[type=number]:focus ~ .underline,
+.input-data input[type=email]:focus ~ .underline,
+.input-data select:focus ~ .underline {
   background-color: #1c80cf;
   width: 100%;
 }
-.form-wrapper form .form-group .input-data .underline,
-.form-wrapper form .preview-group .input-data .underline,
-.form-wrapper .doc-preview .form-group .input-data .underline,
-.form-wrapper .doc-preview .preview-group .input-data .underline,
-.doc-preview-wrapper form .form-group .input-data .underline,
-.doc-preview-wrapper form .preview-group .input-data .underline,
-.doc-preview-wrapper .doc-preview .form-group .input-data .underline,
-.doc-preview-wrapper .doc-preview .preview-group .input-data .underline {
+.input-data .underline {
   position: absolute;
   width: 0;
   bottom: 0;
   height: 2px;
   transition: width 0.2s;
 }
-.form-wrapper form .form-group textarea,
-.form-wrapper form .preview-group textarea,
-.form-wrapper .doc-preview .form-group textarea,
-.form-wrapper .doc-preview .preview-group textarea,
-.doc-preview-wrapper form .form-group textarea,
-.doc-preview-wrapper form .preview-group textarea,
-.doc-preview-wrapper .doc-preview .form-group textarea,
-.doc-preview-wrapper .doc-preview .preview-group textarea {
-  width: 100%;
-  height: 50px;
-  margin-bottom: 2rem;
-}
-.form-wrapper form .form-group input[type=submit],
-.form-wrapper form .preview-group input[type=submit],
-.form-wrapper .doc-preview .form-group input[type=submit],
-.form-wrapper .doc-preview .preview-group input[type=submit],
-.doc-preview-wrapper form .form-group input[type=submit],
-.doc-preview-wrapper form .preview-group input[type=submit],
-.doc-preview-wrapper .doc-preview .form-group input[type=submit],
-.doc-preview-wrapper .doc-preview .preview-group input[type=submit] {
+
+input[type=submit] {
   background-color: #1c80cf;
   font-size: 1rem;
   text-transform: uppercase;
@@ -842,313 +671,8 @@ tbody td .action a:last-child {
   cursor: pointer;
   margin-top: 26.33px;
 }
-.form-wrapper form .form-group input[type=submit]:hover,
-.form-wrapper form .preview-group input[type=submit]:hover,
-.form-wrapper .doc-preview .form-group input[type=submit]:hover,
-.form-wrapper .doc-preview .preview-group input[type=submit]:hover,
-.doc-preview-wrapper form .form-group input[type=submit]:hover,
-.doc-preview-wrapper form .preview-group input[type=submit]:hover,
-.doc-preview-wrapper .doc-preview .form-group input[type=submit]:hover,
-.doc-preview-wrapper .doc-preview .preview-group input[type=submit]:hover {
+input[type=submit]:hover {
   background-color: #0d6ab0;
-}
-.form-wrapper form .form-group .input-data-readonly,
-.form-wrapper form .form-group .preview-box,
-.form-wrapper form .preview-group .input-data-readonly,
-.form-wrapper form .preview-group .preview-box,
-.form-wrapper .doc-preview .form-group .input-data-readonly,
-.form-wrapper .doc-preview .form-group .preview-box,
-.form-wrapper .doc-preview .preview-group .input-data-readonly,
-.form-wrapper .doc-preview .preview-group .preview-box,
-.doc-preview-wrapper form .form-group .input-data-readonly,
-.doc-preview-wrapper form .form-group .preview-box,
-.doc-preview-wrapper form .preview-group .input-data-readonly,
-.doc-preview-wrapper form .preview-group .preview-box,
-.doc-preview-wrapper .doc-preview .form-group .input-data-readonly,
-.doc-preview-wrapper .doc-preview .form-group .preview-box,
-.doc-preview-wrapper .doc-preview .preview-group .input-data-readonly,
-.doc-preview-wrapper .doc-preview .preview-group .preview-box {
-  display: flex;
-  align-items: center;
-  margin-top: 22.33px;
-  margin-bottom: 2rem;
-  border: 1px dotted #1c80cf;
-}
-.form-wrapper form .form-group .input-data-readonly label,
-.form-wrapper form .form-group .preview-box label,
-.form-wrapper form .preview-group .input-data-readonly label,
-.form-wrapper form .preview-group .preview-box label,
-.form-wrapper .doc-preview .form-group .input-data-readonly label,
-.form-wrapper .doc-preview .form-group .preview-box label,
-.form-wrapper .doc-preview .preview-group .input-data-readonly label,
-.form-wrapper .doc-preview .preview-group .preview-box label,
-.doc-preview-wrapper form .form-group .input-data-readonly label,
-.doc-preview-wrapper form .form-group .preview-box label,
-.doc-preview-wrapper form .preview-group .input-data-readonly label,
-.doc-preview-wrapper form .preview-group .preview-box label,
-.doc-preview-wrapper .doc-preview .form-group .input-data-readonly label,
-.doc-preview-wrapper .doc-preview .form-group .preview-box label,
-.doc-preview-wrapper .doc-preview .preview-group .input-data-readonly label,
-.doc-preview-wrapper .doc-preview .preview-group .preview-box label {
-  display: flex;
-  justify-content: space-between;
-  width: 60px;
-  margin: 0;
-}
-.form-wrapper form .form-group .input-data-readonly .input-data,
-.form-wrapper form .form-group .preview-box .input-data,
-.form-wrapper form .preview-group .input-data-readonly .input-data,
-.form-wrapper form .preview-group .preview-box .input-data,
-.form-wrapper .doc-preview .form-group .input-data-readonly .input-data,
-.form-wrapper .doc-preview .form-group .preview-box .input-data,
-.form-wrapper .doc-preview .preview-group .input-data-readonly .input-data,
-.form-wrapper .doc-preview .preview-group .preview-box .input-data,
-.doc-preview-wrapper form .form-group .input-data-readonly .input-data,
-.doc-preview-wrapper form .form-group .preview-box .input-data,
-.doc-preview-wrapper form .preview-group .input-data-readonly .input-data,
-.doc-preview-wrapper form .preview-group .preview-box .input-data,
-.doc-preview-wrapper .doc-preview .form-group .input-data-readonly .input-data,
-.doc-preview-wrapper .doc-preview .form-group .preview-box .input-data,
-.doc-preview-wrapper .doc-preview .preview-group .input-data-readonly .input-data,
-.doc-preview-wrapper .doc-preview .preview-group .preview-box .input-data {
-  margin-bottom: 0;
-}
-.form-wrapper form .form-group .input-data-readonly .input-data input[type=text],
-.form-wrapper form .form-group .preview-box .input-data input[type=text],
-.form-wrapper form .preview-group .input-data-readonly .input-data input[type=text],
-.form-wrapper form .preview-group .preview-box .input-data input[type=text],
-.form-wrapper .doc-preview .form-group .input-data-readonly .input-data input[type=text],
-.form-wrapper .doc-preview .form-group .preview-box .input-data input[type=text],
-.form-wrapper .doc-preview .preview-group .input-data-readonly .input-data input[type=text],
-.form-wrapper .doc-preview .preview-group .preview-box .input-data input[type=text],
-.doc-preview-wrapper form .form-group .input-data-readonly .input-data input[type=text],
-.doc-preview-wrapper form .form-group .preview-box .input-data input[type=text],
-.doc-preview-wrapper form .preview-group .input-data-readonly .input-data input[type=text],
-.doc-preview-wrapper form .preview-group .preview-box .input-data input[type=text],
-.doc-preview-wrapper .doc-preview .form-group .input-data-readonly .input-data input[type=text],
-.doc-preview-wrapper .doc-preview .form-group .preview-box .input-data input[type=text],
-.doc-preview-wrapper .doc-preview .preview-group .input-data-readonly .input-data input[type=text],
-.doc-preview-wrapper .doc-preview .preview-group .preview-box .input-data input[type=text] {
-  background-color: #fff;
-  border: none;
-}
-.form-wrapper form .form-group .preview-box,
-.form-wrapper form .preview-group .preview-box,
-.form-wrapper .doc-preview .form-group .preview-box,
-.form-wrapper .doc-preview .preview-group .preview-box,
-.doc-preview-wrapper form .form-group .preview-box,
-.doc-preview-wrapper form .preview-group .preview-box,
-.doc-preview-wrapper .doc-preview .form-group .preview-box,
-.doc-preview-wrapper .doc-preview .preview-group .preview-box {
-  flex-direction: column;
-  align-items: flex-start;
-  margin-block: 1.5rem;
-}
-.form-wrapper form .form-group .preview-box p,
-.form-wrapper form .preview-group .preview-box p,
-.form-wrapper .doc-preview .form-group .preview-box p,
-.form-wrapper .doc-preview .preview-group .preview-box p,
-.doc-preview-wrapper form .form-group .preview-box p,
-.doc-preview-wrapper form .preview-group .preview-box p,
-.doc-preview-wrapper .doc-preview .form-group .preview-box p,
-.doc-preview-wrapper .doc-preview .preview-group .preview-box p {
-  margin-bottom: 0.8rem;
-}
-.form-wrapper form .form-group .preview-box p:last-child,
-.form-wrapper form .preview-group .preview-box p:last-child,
-.form-wrapper .doc-preview .form-group .preview-box p:last-child,
-.form-wrapper .doc-preview .preview-group .preview-box p:last-child,
-.doc-preview-wrapper form .form-group .preview-box p:last-child,
-.doc-preview-wrapper form .preview-group .preview-box p:last-child,
-.doc-preview-wrapper .doc-preview .form-group .preview-box p:last-child,
-.doc-preview-wrapper .doc-preview .preview-group .preview-box p:last-child {
-  margin-bottom: 0;
-}
-.form-wrapper form .form-group .preview-box .tab,
-.form-wrapper form .preview-group .preview-box .tab,
-.form-wrapper .doc-preview .form-group .preview-box .tab,
-.form-wrapper .doc-preview .preview-group .preview-box .tab,
-.doc-preview-wrapper form .form-group .preview-box .tab,
-.doc-preview-wrapper form .preview-group .preview-box .tab,
-.doc-preview-wrapper .doc-preview .form-group .preview-box .tab,
-.doc-preview-wrapper .doc-preview .preview-group .preview-box .tab {
-  display: inline-block;
-}
-.form-wrapper form .form-group .preview-box .tab.sm,
-.form-wrapper form .preview-group .preview-box .tab.sm,
-.form-wrapper .doc-preview .form-group .preview-box .tab.sm,
-.form-wrapper .doc-preview .preview-group .preview-box .tab.sm,
-.doc-preview-wrapper form .form-group .preview-box .tab.sm,
-.doc-preview-wrapper form .preview-group .preview-box .tab.sm,
-.doc-preview-wrapper .doc-preview .form-group .preview-box .tab.sm,
-.doc-preview-wrapper .doc-preview .preview-group .preview-box .tab.sm {
-  width: 50px;
-}
-.form-wrapper form .form-group .preview-box.right,
-.form-wrapper form .preview-group .preview-box.right,
-.form-wrapper .doc-preview .form-group .preview-box.right,
-.form-wrapper .doc-preview .preview-group .preview-box.right,
-.doc-preview-wrapper form .form-group .preview-box.right,
-.doc-preview-wrapper form .preview-group .preview-box.right,
-.doc-preview-wrapper .doc-preview .form-group .preview-box.right,
-.doc-preview-wrapper .doc-preview .preview-group .preview-box.right {
-  align-items: flex-end;
-}
-.form-wrapper form .form-group .form-group-secondary,
-.form-wrapper form .preview-group .form-group-secondary,
-.form-wrapper .doc-preview .form-group .form-group-secondary,
-.form-wrapper .doc-preview .preview-group .form-group-secondary,
-.doc-preview-wrapper form .form-group .form-group-secondary,
-.doc-preview-wrapper form .preview-group .form-group-secondary,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary {
-  width: 100%;
-  flex-wrap: wrap;
-  display: flex;
-}
-.form-wrapper form .form-group .form-group-secondary .input-data,
-.form-wrapper form .preview-group .form-group-secondary .input-data,
-.form-wrapper .doc-preview .form-group .form-group-secondary .input-data,
-.form-wrapper .doc-preview .preview-group .form-group-secondary .input-data,
-.doc-preview-wrapper form .form-group .form-group-secondary .input-data,
-.doc-preview-wrapper form .preview-group .form-group-secondary .input-data,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary .input-data,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary .input-data {
-  flex: 1 1 50%; /* Setiap input-data akan memenuhi 50% lebar parent */
-  box-sizing: border-box;
-}
-.form-wrapper form .form-group .form-group-secondary .input-data label,
-.form-wrapper form .preview-group .form-group-secondary .input-data label,
-.form-wrapper .doc-preview .form-group .form-group-secondary .input-data label,
-.form-wrapper .doc-preview .preview-group .form-group-secondary .input-data label,
-.doc-preview-wrapper form .form-group .form-group-secondary .input-data label,
-.doc-preview-wrapper form .preview-group .form-group-secondary .input-data label,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary .input-data label,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary .input-data label {
-  font-size: 0.8rem;
-}
-.form-wrapper form .form-group .form-group-secondary .input-data:nth-child(even),
-.form-wrapper form .preview-group .form-group-secondary .input-data:nth-child(even),
-.form-wrapper .doc-preview .form-group .form-group-secondary .input-data:nth-child(even),
-.form-wrapper .doc-preview .preview-group .form-group-secondary .input-data:nth-child(even),
-.doc-preview-wrapper form .form-group .form-group-secondary .input-data:nth-child(even),
-.doc-preview-wrapper form .preview-group .form-group-secondary .input-data:nth-child(even),
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary .input-data:nth-child(even),
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary .input-data:nth-child(even) {
-  padding-left: 0.5rem; /* Tambahkan padding hanya pada input-data child genap */
-}
-.form-wrapper form .form-group .form-group-secondary .input-data:nth-child(odd),
-.form-wrapper form .preview-group .form-group-secondary .input-data:nth-child(odd),
-.form-wrapper .doc-preview .form-group .form-group-secondary .input-data:nth-child(odd),
-.form-wrapper .doc-preview .preview-group .form-group-secondary .input-data:nth-child(odd),
-.doc-preview-wrapper form .form-group .form-group-secondary .input-data:nth-child(odd),
-.doc-preview-wrapper form .preview-group .form-group-secondary .input-data:nth-child(odd),
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary .input-data:nth-child(odd),
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary .input-data:nth-child(odd) {
-  padding-right: 0.5rem; /* Tambahkan padding hanya pada input-data child genap */
-}
-.form-wrapper form .form-group .form-group-secondary .input-data:last-child,
-.form-wrapper form .preview-group .form-group-secondary .input-data:last-child,
-.form-wrapper .doc-preview .form-group .form-group-secondary .input-data:last-child,
-.form-wrapper .doc-preview .preview-group .form-group-secondary .input-data:last-child,
-.doc-preview-wrapper form .form-group .form-group-secondary .input-data:last-child,
-.doc-preview-wrapper form .preview-group .form-group-secondary .input-data:last-child,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary .input-data:last-child,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary .input-data:last-child {
-  padding: 0;
-}
-.form-wrapper form .form-group .form-group-secondary .input-data input:focus ~ .underline,
-.form-wrapper form .preview-group .form-group-secondary .input-data input:focus ~ .underline,
-.form-wrapper .doc-preview .form-group .form-group-secondary .input-data input:focus ~ .underline,
-.form-wrapper .doc-preview .preview-group .form-group-secondary .input-data input:focus ~ .underline,
-.doc-preview-wrapper form .form-group .form-group-secondary .input-data input:focus ~ .underline,
-.doc-preview-wrapper form .preview-group .form-group-secondary .input-data input:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary .input-data input:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary .input-data input:focus ~ .underline {
-  width: calc(100% - 0.5rem);
-}
-.form-wrapper form .form-group .form-group-secondary .input-data .last-input:focus ~ .underline,
-.form-wrapper form .preview-group .form-group-secondary .input-data .last-input:focus ~ .underline,
-.form-wrapper .doc-preview .form-group .form-group-secondary .input-data .last-input:focus ~ .underline,
-.form-wrapper .doc-preview .preview-group .form-group-secondary .input-data .last-input:focus ~ .underline,
-.doc-preview-wrapper form .form-group .form-group-secondary .input-data .last-input:focus ~ .underline,
-.doc-preview-wrapper form .preview-group .form-group-secondary .input-data .last-input:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary .input-data .last-input:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary .input-data .last-input:focus ~ .underline {
-  width: 100%;
-}
-.form-wrapper form .form-group .form-group-secondary.form-edit,
-.form-wrapper form .preview-group .form-group-secondary.form-edit,
-.form-wrapper .doc-preview .form-group .form-group-secondary.form-edit,
-.form-wrapper .doc-preview .preview-group .form-group-secondary.form-edit,
-.doc-preview-wrapper form .form-group .form-group-secondary.form-edit,
-.doc-preview-wrapper form .preview-group .form-group-secondary.form-edit,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary.form-edit,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary.form-edit {
-  display: grid;
-  width: 100%;
-  grid-template-columns: 30% 70%; /* Kolom pertama 20%, kolom kedua 80% */
-}
-.form-wrapper form .form-group .form-group-secondary.form-edit .form-edit-labels,
-.form-wrapper form .preview-group .form-group-secondary.form-edit .form-edit-labels,
-.form-wrapper .doc-preview .form-group .form-group-secondary.form-edit .form-edit-labels,
-.form-wrapper .doc-preview .preview-group .form-group-secondary.form-edit .form-edit-labels,
-.doc-preview-wrapper form .form-group .form-group-secondary.form-edit .form-edit-labels,
-.doc-preview-wrapper form .preview-group .form-group-secondary.form-edit .form-edit-labels,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary.form-edit .form-edit-labels,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary.form-edit .form-edit-labels {
-  display: flex;
-  flex-direction: column;
-}
-.form-wrapper form .form-group .form-group-secondary.form-edit .form-edit-labels label,
-.form-wrapper form .preview-group .form-group-secondary.form-edit .form-edit-labels label,
-.form-wrapper .doc-preview .form-group .form-group-secondary.form-edit .form-edit-labels label,
-.form-wrapper .doc-preview .preview-group .form-group-secondary.form-edit .form-edit-labels label,
-.doc-preview-wrapper form .form-group .form-group-secondary.form-edit .form-edit-labels label,
-.doc-preview-wrapper form .preview-group .form-group-secondary.form-edit .form-edit-labels label,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary.form-edit .form-edit-labels label,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary.form-edit .form-edit-labels label {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem; /* Memberi jarak antar label */
-}
-.form-wrapper form .form-group .form-group-secondary.form-edit .form-edit-inputs .input-data,
-.form-wrapper form .preview-group .form-group-secondary.form-edit .form-edit-inputs .input-data,
-.form-wrapper .doc-preview .form-group .form-group-secondary.form-edit .form-edit-inputs .input-data,
-.form-wrapper .doc-preview .preview-group .form-group-secondary.form-edit .form-edit-inputs .input-data,
-.doc-preview-wrapper form .form-group .form-group-secondary.form-edit .form-edit-inputs .input-data,
-.doc-preview-wrapper form .preview-group .form-group-secondary.form-edit .form-edit-inputs .input-data,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary.form-edit .form-edit-inputs .input-data,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary.form-edit .form-edit-inputs .input-data {
-  padding: 0;
-}
-.form-wrapper form .form-group .form-group-secondary.form-edit .form-edit-inputs .input-data input:focus ~ .underline,
-.form-wrapper form .preview-group .form-group-secondary.form-edit .form-edit-inputs .input-data input:focus ~ .underline,
-.form-wrapper .doc-preview .form-group .form-group-secondary.form-edit .form-edit-inputs .input-data input:focus ~ .underline,
-.form-wrapper .doc-preview .preview-group .form-group-secondary.form-edit .form-edit-inputs .input-data input:focus ~ .underline,
-.doc-preview-wrapper form .form-group .form-group-secondary.form-edit .form-edit-inputs .input-data input:focus ~ .underline,
-.doc-preview-wrapper form .preview-group .form-group-secondary.form-edit .form-edit-inputs .input-data input:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .form-group .form-group-secondary.form-edit .form-edit-inputs .input-data input:focus ~ .underline,
-.doc-preview-wrapper .doc-preview .preview-group .form-group-secondary.form-edit .form-edit-inputs .input-data input:focus ~ .underline {
-  width: 100%;
-}
-.form-wrapper form .form-group .preview-group.lg,
-.form-wrapper form .preview-group .preview-group.lg,
-.form-wrapper .doc-preview .form-group .preview-group.lg,
-.form-wrapper .doc-preview .preview-group .preview-group.lg,
-.doc-preview-wrapper form .form-group .preview-group.lg,
-.doc-preview-wrapper form .preview-group .preview-group.lg,
-.doc-preview-wrapper .doc-preview .form-group .preview-group.lg,
-.doc-preview-wrapper .doc-preview .preview-group .preview-group.lg {
-  width: 100%;
-}
-.form-wrapper form .kop-surat,
-.form-wrapper .doc-preview .kop-surat,
-.doc-preview-wrapper form .kop-surat,
-.doc-preview-wrapper .doc-preview .kop-surat {
-  padding-bottom: 1rem;
-  border-bottom: 2px solid black;
 }
 
 .success-message,
@@ -1308,21 +832,9 @@ td.form-add .form-add-group {
   display: inline-block;
 }
 
-.main-content.fixed {
-  overflow: hidden;
-  height: 100vh;
-}
-
 .main-content.dashboard {
   gap: 0;
   padding-bottom: 1rem;
-}
-
-.main-content-body.fixed {
-  overflow: hidden;
-  height: calc(100% - (4rem + 62.67px));
-  background-color: #f2f8fc;
-  box-shadow: none;
 }
 
 .main-content-body.dashboard {
@@ -1334,7 +846,7 @@ td.form-add .form-add-group {
 
 .table-view {
   padding: 0;
-  background-color: #f2f8fc;
+  background-color: blue;
 }
 .table-view table {
   border-collapse: separate; /* Membuat tepi sel terpisah */

@@ -1,12 +1,18 @@
 <?php
 require_once "../_config.php";
 
-$id_ph_to_delete = $_GET['id'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Periksa apakah nilai ID telah dikirim melalui formulir
+    if (isset($_POST['id'])) {
+        // Ambil nilai ID dari data POST
+        $id = $_POST['id'];
+        
+        // Hapus data dari tabel "data_produk" dengan id_produk = $id
+        hapusData('penawaran_harga', "id_ph = '$id'", 'penawaran harga');
 
-
-// Hapus data dari tabel "data_produk" dengan id_produk = $id
-hapusData('penawaran_harga', "id_ph = '$id_ph_to_delete'", 'penawaran harga');
-
-// Setelah penghapusan, redirect ke halaman index.php
-echo "<script>window.location='index.php';</script>";
+    } else {
+        // Jika tidak ada nilai ID yang diterima, tindakan yang sesuai dapat diambil, misalnya menampilkan pesan kesalahan
+        echo "ID not found.";
+    }
+}
 ?>

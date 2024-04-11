@@ -60,7 +60,7 @@ foreach ($messageTypes as $type) {
                 </div>
                 <form action="proses.php" method="post">
                     <div class="form-group">
-                        <label for="no_produk">No. Part</label>
+                        <label for="no_produk">No. Produk</label>
                         <div class="input-data">
                             <input type="text" id="no_produk" name="no_produk" autofocus required>
                             <div class="underline"></div>

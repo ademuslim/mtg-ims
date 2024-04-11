@@ -13,8 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Validasi nomor produk tidak boleh sama
         if (isNoProdukUnique($noProduk)) {
+            // Generate ID penawaran harga menggunakan UUID
+            $idProduk = generateUUID();
+
             // Fungsi untuk menambahkan data produk ke dalam tabel
-            tambahData("data_produk", ["no_produk", "deskripsi", "satuan"], [$noProduk, $deskripsi, $satuan], "produk");
+            tambahData("data_produk", ["id_produk", "no_produk", "deskripsi", "satuan"], [$idProduk, $noProduk, $deskripsi, $satuan], "produk");
         } else {
             $_SESSION['warning_message'] = "Nomor produk $noProduk sudah ada, silakan masukkan nomor produk yang lain.";
             header("Location: add.php");

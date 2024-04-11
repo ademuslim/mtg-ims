@@ -22,6 +22,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
 
         // Assign nilai-nilai ke variabel
         $noPh = strtoupper($row['no_ph']);
+        $tempat = ucwords($row['tempat']);
         $tanggal = $row['tanggal'];
         $pengirim = $row['id_pengirim'];
         $penerima = $row['id_penerima'];
@@ -32,28 +33,9 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
         $dataPengirim = ambilData('data_kontak_internal', '*', "id_kontak = $pengirim");
         if (!empty($dataPengirim)) {
             // Ambil nilai dari hasil query
-            $row = $dataPengirim[0]; // Karena Anda hanya mengambil satu baris data
-
+            $row = $dataPengirim[0]; // Karena hanya mengambil satu baris data
             $namaPengirim = strtoupper($row['nama']);
-
             $alamatPengirim = ucwords($row['alamat']);
-
-            // Pecah string alamat menjadi bagian-bagian
-            $alamatParts = explode(" / ", $alamatPengirim);
-            
-            // Ambil kota pengirim dari alamat
-            $kotaPengirim = $alamatParts[2];
-            
-            $kecamatan = "Kec. " . $alamatParts[1]; // Tambahkan "Kec." sebelum kecamatan
-            $kota = "Kab. " . $alamatParts[2]; // Tambahkan "Kab." sebelum kota
-            
-            // Modifikasi kecamatan dan kota di array alamatParts
-            $alamatParts[1] = $kecamatan;
-            $alamatParts[2] = $kota;
-            
-            // Menggabungkan kembali array dengan tanda koma
-            $alamatPengirimFormat = implode(", ", $alamatParts);
-            
             $noTelpPengirim = $row['no_telp'];
             $emailPengirim = $row['email'];
         }
@@ -62,7 +44,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
         $dataPenerima = ambilData('data_pelanggan', 'nama_pelanggan, alamat', "id_pelanggan = $penerima");
         if (!empty($dataPenerima)) {
             // Ambil nilai dari hasil query
-            $row = $dataPenerima[0]; // Karena Anda hanya mengambil satu baris data
+            $row = $dataPenerima[0]; // Karena hanya mengambil satu baris data
 
             $namaPenerima = strtoupper($row['nama_pelanggan']);
             $alamatPenerima = ucwords($row['alamat']);
@@ -72,7 +54,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
         $dataKontakUP = ambilData('data_kontak_mitra', 'nama_mitra, jenis_kelamin', "id_mitra = $kontakUp");
         if (!empty($dataKontakUP)) {
             // Ambil nilai dari hasil query
-            $row = $dataKontakUP[0]; // Karena Anda hanya mengambil satu baris data
+            $row = $dataKontakUP[0]; // Karena hanya mengambil satu baris data
 
             $namaKontakUP = ucwords($row['nama_mitra']);
             $jenisKelaminKontakUP = ucwords($row['jenis_kelamin']);
@@ -149,7 +131,7 @@ $dataProduk = ambilData('data_produk', '*');
                             <!-- Preview konten header akan ditampilkan di sini -->
                             <div id="header-content-preview">
                                 <h1><?= $namaPengirim ?></h1>
-                                <p><?= $alamatPengirimFormat ?></p>
+                                <p><?= $alamatPengirim ?></p>
                                 <p><?= "Telp: $noTelpPengirim Email: $emailPengirim" ?></p>
                             </div>
                             <div class="overlay"></div>
@@ -174,7 +156,7 @@ $dataProduk = ambilData('data_produk', '*');
 
                         <div class="preview-group">
                             <div class="preview-box right">
-                                <p><?= $kotaPengirim . ", " . $tanggal ?></p>
+                                <p><?= $tempat . ", " . $tanggal ?></p>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/datatables/datatables.min.css" />
+    <!-- Memuat jQuery terlebih dahulu -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Kemudian baru memuat DataTables -->
+    <script src="../assets/datatables/datatables.min.js"></script>
+  </head>
+  <body>
+    <table id="example">
+      <thead>
+        <tr>
+          <th>no</th>
+          <th>nama</th>
+          <th>jk</th>
+          <th>tes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>no</td>
+          <td>nama</td>
+          <td>jk</td>
+          <td>tes</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      $(document).ready(function () {
+        $("#example").DataTable();
+      });
+    </script>
+  </body>
+</html>

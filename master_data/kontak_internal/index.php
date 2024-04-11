@@ -98,15 +98,7 @@ $dataKontak = ambilData('data_kontak_internal', '*', null, 'id_kontak');
                                 ?>
                                 <td><?= strtoupper($row['id_kontak']); ?></td>
                                 <td><?= strtoupper($row['nama']); ?></td>
-
-                                <?php
-                                $alamat = $row['alamat'];
-                                // Memisahkan string berdasarkan tanda garis miring (/) menjadi array
-                                $alamatArray = explode(" / ", $alamat);
-                                // Menggabungkan kembali array dengan tanda koma
-                                $alamatFormat = implode(", ", $alamatArray);
-                                ?>
-                                <td><?= ucwords($alamatFormat); ?></td>
+                                <td><?= ucwords($row['alamat']); ?></td>
                                 <td><?= strtoupper($row['no_telp']); ?></td>
                                 <td><?= $row['email']; ?></td>
                                 <td><?= $row['tanggal_terdaftar']; ?></td>

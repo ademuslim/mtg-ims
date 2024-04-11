@@ -34,8 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-            // Fungsi untuk menambahkan data pelanggan ke dalam tabel
-            tambahData("data_pelanggan", ["nama_pelanggan", "alamat", "no_telp", "email", "tanggal_terdaftar", "keterangan", "status"], [$nama, $alamat, $noTelp, $email, $tanggal, $keterangan, $status], "pelanggan");
+        // Generate ID Pelanggan
+        $idPelanggan = generateUUID();
+        // Fungsi untuk menambahkan data pelanggan ke dalam tabel
+        tambahData("data_pelanggan", ["id_pelanggan", "nama_pelanggan", "alamat", "no_telp", "email", "tanggal_terdaftar", "keterangan", "status"], [$idPelanggan, $nama, $alamat, $noTelp, $email, $tanggal, $keterangan, $status], "pelanggan");
     }
 
     // Periksa apakah tombol "Simpan" untuk mengedit data ditekan

@@ -33,8 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: index.php");
             exit();
         }
+
+        // Generate ID kontak mitra
+        $idMitra = generateUUID();
+
         // Fungsi untuk menambahkan data kontak ke dalam tabel
-        tambahData("data_kontak_mitra", ["nama_mitra", "alamat", "no_telp", "email", "tanggal_terdaftar", "keterangan", "status"], [$nama, $alamat, $noTelp, $email, $tanggal, $keterangan, $status], "kontak");
+        tambahData("data_kontak_mitra", ["id_mitra", "nama_mitra", "alamat", "no_telp", "email", "tanggal_terdaftar", "keterangan", "status"], [$idMitra, $nama, $alamat, $noTelp, $email, $tanggal, $keterangan, $status], "kontak");
             
     }
 

@@ -33,8 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: index.php");
             exit();
         }
+
+        // Generate ID Pemasok
+        $idPemasok = generateUUID();
+
         // Fungsi untuk menambahkan data pemasok ke dalam tabel
-        tambahData("data_pemasok", ["nama_pemasok", "alamat", "no_telp", "email", "tanggal_terdaftar", "keterangan", "status"], [$nama, $alamat, $noTelp, $email, $tanggal, $keterangan, $status], "pemasok");
+        tambahData("data_pemasok", ["id_pemasok", "nama_pemasok", "alamat", "no_telp", "email", "tanggal_terdaftar", "keterangan", "status"], [$idPemasok, $nama, $alamat, $noTelp, $email, $tanggal, $keterangan, $status], "pemasok");
     }
 
     // Periksa apakah tombol "Simpan" untuk mengedit data ditekan

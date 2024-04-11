@@ -49,31 +49,20 @@ $dataKontak = ambilData('data_kontak_internal', '*', "id_kontak = '$id'");
                         <div class="form-group">
 
                             <?php
-                        if ($dataKontak) {
-                            // Jika ditemukan, Anda dapat menggunakan data tersebut
-                            foreach ($dataKontak as $row) {
+                            if ($dataKontak) {
+                                // Jika ditemukan, Anda dapat menggunakan data tersebut
+                                foreach ($dataKontak as $row) {
 
-                                $idKontak = $row['id_kontak'];
-                                $nama = strtoupper($row["nama"]);
-                                $alamat = $row["alamat"];
-
-                                // Pecah string alamat menjadi bagian-bagian
-                                $alamatParts = explode(" / ", $alamat);
-
-                                // Isi nilai dari setiap bagian alamat ke dalam variabel yang sesuai
-                                $jalan = $alamatParts[0];
-                                $kecamatan = $alamatParts[1];
-                                $kota = $alamatParts[2];
-                                $provinsi = $alamatParts[3];
-                                $kodepos = $alamatParts[4];
-
-                                $noTelp = $row["no_telp"];
-                                $email = $row["email"];
-                                $tanggal = $row["tanggal_terdaftar"];
-                                $status = $row["status"];
-                                $keterangan = $row["keterangan"];
-                            }
-                        ?>
+                                    $idKontak = $row['id_kontak'];
+                                    $nama = strtoupper($row["nama"]);
+                                    $alamat = $row["alamat"];
+                                    $noTelp = $row["no_telp"];
+                                    $email = $row["email"];
+                                    $tanggal = $row["tanggal_terdaftar"];
+                                    $status = $row["status"];
+                                    $keterangan = $row["keterangan"];
+                                }
+                            ?>
 
                             <input type="hidden" name="id_kontak" value="<?= $idKontak; ?>">
 
@@ -84,45 +73,11 @@ $dataKontak = ambilData('data_kontak_internal', '*', "id_kontak = '$id'");
                             </div>
 
                             <label for="alamat">Alamat</label>
-                            <div class="form-group-secondary form-edit">
-                                <div class="form-edit-labels">
-                                    <label for="jalan">Jalan / Desa:</label>
-                                    <label for="kecamatan">Kecamatan:</label>
-                                    <label for="kota">Kota:</label>
-                                    <label for="provinsi">Provinsi:</label>
-                                    <label for="kodepos">Kode Pos:</label>
-                                </div>
-                                <div class="form-edit-inputs">
-                                    <div class="input-data">
-                                        <input type="text" id="jalan" name="jalan" value="<?= $jalan ?>"
-                                            placeholder="Nama Jalan / Desa / Kelurahan" required>
-                                        <div class="underline"></div>
-                                    </div>
-                                    <div class="input-data">
-                                        <input type="text" id="kecamatan" name="kecamatan" value="<?= $kecamatan ?>"
-                                            placeholder="Kecamatan" required>
-                                        <div class="underline"></div>
-                                    </div>
-                                    <div class="input-data">
-                                        <input type="text" id="kota" name="kota" value="<?= $kota ?>"
-                                            placeholder="Kota / Kabupaten / Wilayah" required>
-                                        <div class="underline"></div>
-                                    </div>
-                                    <div class="input-data">
-                                        <input type="text" id="provinsi" name="provinsi" value="<?= $provinsi ?>"
-                                            placeholder="Provinsi" required>
-                                        <div class="underline"></div>
-                                    </div>
-                                    <div class="input-data">
-                                        <input type="text" id="kodepos" class="last-input" name="kodepos"
-                                            value="<?= $kodepos ?>" placeholder="Kode Pos" required>
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
+                            <div class="input-data">
+                                <input type="text" id="alamat" name="alamat" value="<?= $alamat ?>" required>
+                                <div class="underline"></div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
                             <label for="no_telp">No. Telepon</label>
                             <div class="input-data">
                                 <input type="text" id="no_telp" name="no_telp" value="<?= $noTelp; ?>" required>
@@ -134,7 +89,9 @@ $dataKontak = ambilData('data_kontak_internal', '*', "id_kontak = '$id'");
                                 <input type="email" id="email" name="email" value="<?= $email; ?>" required>
                                 <div class="underline"></div>
                             </div>
+                        </div>
 
+                        <div class="form-group">
                             <label for="tanggal">Tanggal<span class="required-field"><sup>*mulai terdaftar sebagai
                                         kontak.
                                     </sup></span></label>

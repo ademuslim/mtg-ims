@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// Memuat Uuid dan membuat function
+require 'assets/libs/vendor/autoload.php';
+use Ramsey\Uuid\Uuid;
+
 // Konfigurasi database
 $host = "localhost"; // Ganti dengan host database Anda
 $username = "root"; // Ganti dengan username database Anda
@@ -13,12 +17,6 @@ $conn = mysqli_connect($host, $username, $password, $database);
 // Memeriksa koneksi
 if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
-}
-
-// Fungsi untuk membersihkan dan mencegah SQL injection
-function sanitizeInput($input) {
-    global $conn;
-    return mysqli_real_escape_string($conn, $input);
 }
 
 // Fungsi untuk mendapatkan base URL
@@ -45,6 +43,60 @@ function hashPassword($password) {
 
     return $hashedPassword;
 }
+
+// Fungsi generate uuid
+function generateUUID() {
+    return Uuid::uuid4()->toString();
+}
+
+// Fungsi untuk membersihkan input dari serangan SQL injection
+function cleanInput($data) {
+    global $conn;
+    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags(trim($data))));
+}
+
+// Fungsi untuk mengenkripsi dan mendekripsi ID_PH
+function encryptor($action, $string) {
+    $output = false;
+    $encrypt_method = "AES-256-CBC";
+ 
+    $secret_key = 'Tech Winter';
+    $secret_iv = 'tech@12345678';
+ 
+    $key = hash('sha256', $secret_key);
+    $iv = substr(hash('sha256', $secret_iv), 0, 16);
+ 
+    if($action == 'encrypt'){
+         $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+         $output = base64_encode($output);
+    } else if($action == 'decrypt'){
+         $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+    }
+    
+    return $output;
+ }
+ 
+
+// Fungsi untuk mendekripsi ID_PH yang diberikan dalam URL
+function decrypt_id($encrypted_id) {
+    // Kunci rahasia (sama dengan yang digunakan saat enkripsi)
+    $secret_key = 'kunci_rahasia_anda';
+
+    // Decode URL encoded string
+    $decoded = urldecode($encrypted_id);
+
+    // Dekripsi ID_PH menggunakan AES-256-CBC
+    $iv_length = openssl_cipher_iv_length('aes-256-cbc');
+    $iv = openssl_random_pseudo_bytes($iv_length);
+    $decrypted_id = openssl_decrypt(base64_decode($decoded), 'aes-256-cbc', $secret_key, OPENSSL_RAW_DATA, $iv);
+
+    // Mengembalikan hasil dekripsi
+    return $decrypted_id;
+}
+
+
+
+
 
 
 function setActivePage($page) {
@@ -132,6 +184,36 @@ function ambilData($tableName, $columns = '*', $conditions = null, $orderBy = nu
 
     // Query untuk mengambil data dari tabel dengan kondisi, limit, dan order by opsional
     $query = "SELECT $columnString FROM $tableName";
+    if ($conditions) {
+        $query .= " WHERE $conditions";
+    }
+    if ($orderBy) {
+        $query .= " ORDER BY $orderBy $orderType";
+    }
+    if ($limit) {
+        $query .= " LIMIT $limit";
+    }
+
+    // Melakukan query ke database
+    $result = mysqli_query($conn, $query);
+
+    // Menyimpan hasil query dalam sebuah array
+    $data = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+
+    // Mengembalikan data yang telah diambil
+    return $data;
+}
+
+// Fungsi untuk mengambil data dengan operasi JOIN dari tabel di database MySQL
+function ambilDataJoin($selectColumns, $tableName, $joinClauses, $conditions = null, $orderBy = null, $orderType = 'ASC', $limit = null ) {
+    
+    global $conn; // Mengakses variabel koneksi global
+
+    // Query untuk mengambil data dengan operasi JOIN dari tabel dengan kondisi, limit, dan order by opsional
+    $query = "SELECT $selectColumns FROM $tableName $joinClauses";
     if ($conditions) {
         $query .= " WHERE $conditions";
     }

@@ -1,5 +1,5 @@
 <?php
-include '_config.php';
+require '_config.php';
 
 // Jika tidak ada session, arahkan ke login
 if (!isset($_SESSION['email'])) {
@@ -27,8 +27,14 @@ $accordionClass = setActiveAccordion($submenuUrls);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MTG IMS | Invoice Management System</title>
+
     <link rel="stylesheet" href="<?= base_url('assets/styles/CSS/style.css'); ?>">
-    <script src="<?= base_url('/assets/js/script.js'); ?>" defer></script>
+    <script src="<?= base_url('assets/js/script.js'); ?>" defer></script>
+    <script src="<?= base_url('assets/js/dynamic-table.js'); ?>" defer></script>
+
+    <link rel="stylesheet" href="<?= base_url('assets/datatables/datatables.min.css'); ?>">
+    <script src="<?= base_url('assets/js/jquery.min.js'); ?>"></script>
+    <script src="<?= base_url('assets/datatables/datatables.min.js'); ?>"></script>
 </head>
 
 <body>

@@ -73,7 +73,7 @@ $dataProduk = ambilData('data_produk', '*', null, 'id_produk');
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>No. Part</th>
+                                <th>No. Produk</th>
                                 <th>Deskripsi</th>
                                 <th>Satuan</th>
                                 <th>

@@ -1,5 +1,5 @@
 <?php
-include '../../sidebar.php';
+include '../sidebar.php';
 
 // Periksa apakah session login_status tidak true
 if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
@@ -7,21 +7,30 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
     header("Location: " . base_url('auth/login.php'));
     exit;
 }
-
-$id = @$_GET['id'];
-
-// mengambil data dari tabel "data_produk" dengan id_produk = $id
-$dataProduk = ambilData('data_produk', '*', "id_produk = '$id'");
+// Pastikan metode yang digunakan adalah POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Periksa apakah nilai ID telah dikirim melalui formulir
+    if (isset($_POST['id'])) {
+        // Ambil nilai ID dari data POST
+        $id = $_POST['id'];
+        
+        $data = ambilData('penawaran_harga', '*', "id_ph = '$id'");
+    } else {
+        // Jika tidak ada nilai ID yang diterima, tindakan yang sesuai dapat diambil, misalnya menampilkan pesan kesalahan
+        echo "ID not found.";
+    }
+}
 ?>
+
 
 <main>
     <div class="main-content">
         <div class="main-content-header">
             <div class="data-title">
-                <h1>Data Produk</h1>
+                <h1>Data PH</h1>
                 <ul class="breadcrumbs">
-                    <li><a href="<?= base_url('master_data/produk/index.php'); ?>">Data Produk</a></li>
-                    <li>Edit Data Produk</li>
+                    <li><a href="<?= base_url('master_data/pelanggan/index.php'); ?>">Data Pelanggan</a></li>
+                    <li>Edit Data PH</li>
                 </ul>
             </div>
 
@@ -41,48 +50,131 @@ $dataProduk = ambilData('data_produk', '*', "id_produk = '$id'");
         <div class="main-content-body">
             <div class="form-wrapper">
                 <div class="form-title">
-                    <h2>Edit Data Produk</h2>
+                    <h2>Edit Data Pelanggan</h2>
                 </div>
                 <form action="proses.php" method="post">
-                    <div class="form-group">
-
-                        <?php
-                        if ($dataProduk) {
+                    <div class="form-row">
+                        <div class="form-group">
+                            <?php
+                        if ($data) {
                             // Jika ditemukan, Anda dapat menggunakan data tersebut
-                            foreach ($dataProduk as $row) {
-                                $idProduk = $row['id_produk'];
-                                $no_produk = strtoupper($row['no_produk']);
-                                $deskripsi = strtoupper($row['deskripsi']);
-                                $satuan = strtoupper($row['satuan']);
+                            foreach ($data as $row) {
+
+                                $idPh = $row['id_ph'];
+                                $noPh = strtoupper($row["no_ph"]);
+                                $tanggal = strtoupper($row["tanggal"]);
+                                $pengirim = $row["id_pengirim"];
+                                $penerima = $row["id_penerima"];
+                                $up = $row["contact_person"];
+                                $status = $row["status_ph"];
                             }
                         ?>
-                        <input type="hidden" name="id_produk" value="<?= $idProduk; ?>">
 
-                        <label for="no_produk">No. Part</label>
-                        <input type="text" id="no_produk" name="no_produk" value="<?= $no_produk; ?>" autofocus
-                            required>
+                            <input type="hidden" name="id_pelanggan" value="<?= $idPh; ?>">
 
-                        <label for="deskripsi">Deskripsi</label>
-                        <input type="text" id="deskripsi" name="deskripsi" value="<?= $deskripsi; ?>" required>
+                            <label for="nama">Nama Pelanggan</label>
+                            <div class="input-data">
+                                <input type="text" id="nama" name="nama" value="<?= $noPh; ?>" required>
+                                <div class="underline"></div>
+                            </div>
 
-                        <label for="satuan">Satuan</label>
-                        <input type="text" id="satuan" name="satuan" value="<?= $satuan; ?>" required>
+                            <label for="alamat">Alamat</label>
+                            <div class="input-data">
+                                <input type="text" id="alamat" name="alamat" value="<?= $tanggal; ?>" required>
+                                <div class="underline"></div>
+                            </div>
 
-                        <input type="submit" value="Simpan" class="success-btn" name="edit">
+                            <label for="no_telp">No. Telepon</label>
+                            <div class="input-data">
+                                <input type="text" id="no_telp" name="no_telp" value="<?= $pengirim; ?>" required>
+                                <div class="underline"></div>
+                            </div>
 
-                        <?php
+                            <label for="email">Email</label>
+                            <div class="input-data">
+                                <input type="text" id="email" name="email" value="<?= $penerima; ?>" required>
+                                <div class="underline"></div>
+                            </div>
+                            <label for="email">Email</label>
+                            <div class="input-data">
+                                <input type="text" id="email" name="email" value="<?= $up; ?>" required>
+                                <div class="underline"></div>
+                            </div>
+                            <input type="submit" value="Simpan" class="success-btn" name="edit">
+
+                            <?php
                         }else{
                         ?>
-                        <span>Data tidak ditemukan.</span>
-                        <?php
+                            <span>Data tidak ditemukan.</span>
+                            <?php
                         }
                         ?>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </main>
+
+
+<script>
+// Fungsi untuk menangani dropdown
+function handleDropdown(dropdownToggle, dropdownMenu, hiddenInputId) {
+    // Menambahkan event listener untuk dropdown toggle
+    dropdownToggle.addEventListener("click", function() {
+        // Mengubah display dropdown menu
+        if (dropdownMenu.style.display === "block") {
+            dropdownMenu.style.display = "none";
+        } else {
+            dropdownMenu.style.display = "block";
+        }
+    });
+
+    // Menambahkan event listener untuk dropdown menu
+    dropdownMenu.addEventListener("click", function(event) {
+        var target = event.target;
+        // Memeriksa apakah yang diklik adalah dropdown item
+        if (target.classList.contains("dropdown-item")) {
+            // Mengatur teks dropdown toggle
+            dropdownToggle.innerText = target.innerText;
+            // Mengatur nilai input tersembunyi
+            document.querySelector("#" + hiddenInputId).value = target.getAttribute("data-value");
+            // Menutup dropdown menu
+            dropdownMenu.style.display = "none";
+        }
+    });
+
+    // Menutup dropdown saat klik di luar area dropdown
+    document.addEventListener("click", function(event) {
+        var isClickInsideDropdown = dropdownToggle.contains(event.target) || dropdownMenu.contains(event
+            .target);
+        if (!isClickInsideDropdown) {
+            dropdownMenu.style.display = "none";
+        }
+    });
+}
+
+handleDropdown(
+    document.querySelector("#btnStatus"),
+    document.querySelector("#btnStatus + .dropdown-menu"),
+    "status"
+);
+
+// Fungsi validasi dropdown wajib di isi
+function validateForm() {
+    let status = document.getElementById("status").value;
+    let statusError = document.getElementById("status-error");
+
+    if (status === "") {
+        statusError.innerText = "Harap pilih status.";
+        return false;
+    } else {
+        statusError.innerText = "";
+    }
+    return true;
+}
+</script>
 </body>
 
 </html>

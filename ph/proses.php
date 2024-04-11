@@ -1,17 +1,19 @@
 <?php
-// Termasuk file config.php
-include '../_config.php';
+// Memuat Uuid dan membuat function
+require '../_config.php';
+
 // Periksa apakah form disubmit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Periksa apakah tombol "Simpan" ditekan
     if (isset($_POST["add"])) {
-        // Ambil nilai yang dikirim dari form
-        $noPh = strtolower($_POST["no_ph"]);
-        $tanggal = $_POST["tanggal"];
-        $pengirim = strtolower($_POST["pengirim"]);
-        $penerima = strtolower($_POST["penerima"]);
-        $kontakUp = strtolower($_POST["kontak_up"]);
-        $status = strtolower($_POST["status"]);
+        // Ambil nilai yang dikirim dari form dan bersihkan input
+        $noPh = cleanInput(strtolower($_POST["no_ph"]));
+        $tempat = cleanInput($_POST["tempat"]);
+        $tanggal = cleanInput($_POST["tanggal"]);
+        $pengirim = cleanInput(strtolower($_POST["pengirim"]));
+        $penerima = cleanInput(strtolower($_POST["penerima"]));
+        $kontakUp = cleanInput(strtolower($_POST["kontak_up"]));
+        $status = cleanInput(strtolower($_POST["status"]));
 
         // Cek apakah file gambar terupload
         if (isset($_FILES['logo'])) {
@@ -47,17 +49,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pathFile = $folderUpload . $randomFileName;
         }
 
+        // Generate ID penawaran harga menggunakan UUID
+        $idPh = generateUUID();
+
         // Simpan data ke database
-        // Query SQL untuk menambahkan data ke dalam tabel
-        $sql = "INSERT INTO penawaran_harga (no_ph, tanggal, id_pengirim, id_penerima, contact_person, status, kop_surat) VALUES ('$noPh', '$tanggal', '$pengirim', '$penerima', '$kontakUp', '$status', '$pathFile')";
+        // Query SQL untuk menambahkan data ke dalam tabel penawaran_harga
+        $sql = "INSERT INTO penawaran_harga (id_ph, no_ph, tempat, tanggal, id_pengirim, id_penerima, contact_person, status_ph, logo)
+                VALUES ('$idPh', '$noPh', '$tempat', '$tanggal', '$pengirim', '$penerima', '$kontakUp', '$status', '$pathFile')";
 
         // Jalankan query dan periksa apakah berhasil
         if (mysqli_query($conn, $sql)) {
-            // Jika penambahan berhasil, ambil ID unik data yang baru ditambahkan
-            $last_id = mysqli_insert_id($conn);
+            // Insert detail penawaran harga ke dalam tabel detail_penawaran_harga
+            for ($i = 0; $i < count($_POST['deskripsi']); $i++) {
+                $deskripsi = cleanInput($_POST['deskripsi'][$i]);
+                $satuan = cleanInput($_POST['satuan'][$i]);
+                $kuantitas = cleanInput($_POST['kuantitas'][$i]);
+                $harga_satuan = cleanInput($_POST['harga_satuan'][$i]);
 
-            // Redirect pengguna ke halaman add.php dengan membawa ID unik
-            header("Location: detail/add_detail.php?id=$last_id");
+                // Generate ID_detail_ph penawaran harga menggunakan UUID
+                $idDetailPh = generateUUID();
+
+                // Query untuk menyisipkan data ke dalam tabel detail_penawaran_harga
+                $sql_detail = "INSERT INTO detail_penawaran_harga (id_detail_ph, id_ph, deskripsi, satuan, kuantitas, harga_satuan)
+                                VALUES ('$idDetailPh', '$idPh', '$deskripsi', '$satuan', '$kuantitas', '$harga_satuan')";
+
+                if ($conn->query($sql_detail) !== TRUE) {
+                    echo "Error: " . $sql_detail . "<br>" . $conn->error;
+                    exit();
+                }
+            }
+
+            // Redirect pengguna ke halaman add.php
+            header("Location: index.php");
             exit();
         } else {
             // Jika terjadi kesalahan saat menambahkan data, tampilkan pesan kesalahan dan redirect ke halaman index.php

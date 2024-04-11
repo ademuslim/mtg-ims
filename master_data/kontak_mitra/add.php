@@ -51,19 +51,23 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
 
                             <label for="alamat">Alamat</label>
                             <div class="input-data">
-                                <input type="text" id="alamat" name="alamat" required>
+                                <input type="text" id="alamat" name="alamat"
+                                    placeholder="Alamat lengkap (jalan, kelurahan, kecamatan, kabupaten, provinsi)."
+                                    required>
                                 <div class="underline"></div>
                             </div>
 
                             <label for="no_telp">No. Telepon</label>
                             <div class="input-data">
-                                <input type="text" id="no_telp" name="no_telp" required>
+                                <input type="text" id="no_telp" name="no_telp"
+                                    placeholder="Masukkan nomor telepon (misal: 0812-3456-7890)" required>
                                 <div class="underline"></div>
                             </div>
 
                             <label for="email">Email</label>
                             <div class="input-data">
-                                <input type="email" id="email" name="email" required>
+                                <input type="email" id="email" name="email"
+                                    placeholder="Masukkan alamat email (misal: nama@example.com)" required>
                                 <div class="underline"></div>
                             </div>
                         </div>
@@ -77,7 +81,8 @@ if (!isset($_SESSION['login_status']) && $_SESSION['login_status'] !== true) {
 
                             <label for="keterangan">Keterangan</label>
                             <div class="input-data">
-                                <textarea name="keterangan" id="keterangan" placeholder="Opsional."></textarea>
+                                <textarea name="keterangan" id="keterangan"
+                                    placeholder="Opsional (misal: Direktur PT XYZ, Sales Manager, Pelanggan Tetap, dll)."></textarea>
                             </div>
 
                             <label for="status">Status</label>

@@ -11,13 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $idProduk = $_POST["produk"];
         $harga = $_POST["harga"];
 
-        tambahData("data_harga", ["tanggal", "id_produk", "harga"], [$tanggal, $idProduk, $harga], "harga");
+        // Generate ID harga menggunakan UUID
+        $idHarga = generateUUID();
+
+        tambahData("data_harga", ["id_harga", "tanggal", "id_produk", "harga"], [$idHarga, $tanggal, $idProduk, $harga], "harga");
     }
 
     // Periksa apakah tombol "Simpan" untuk mengedit data ditekan
     else if (isset($_POST["edit"])) {
         // Ambil nilai yang dikirim dari form
-        $idHarga = $_POST["id_harga"]; // ID produk yang akan diedit
+        $idHarga = $_POST["id_harga"]; // ID harga yang akan diedit
         $tanggal = $_POST["tanggal"];
         $idProduk = $_POST["id_produk"];
         $harga = $_POST["harga"];

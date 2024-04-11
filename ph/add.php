@@ -57,7 +57,7 @@ $dataProduk = ambilData('data_produk', '*');
 
                             <!-- Input Logo -->
                             <input type="file" id="file-upload" name="logo" accept="image/*"
-                                onchange="previewImage(event)" required>
+                                onchange="previewImage(event)" autofocus required>
 
                             <!-- Preview gambar akan ditampilkan di sini -->
                             <div id="image-preview"></div>
@@ -131,11 +131,23 @@ $dataProduk = ambilData('data_produk', '*');
                         </div>
 
                         <div class="form-group">
-                            <label for="tanggal">Tanggal</label>
-                            <div class="input-data">
-                                <input type="date" id="tanggal" name="tanggal" autofocus required>
-                                <div class="underline"></div>
+                            <div class="form-group-secondary">
+                                <div class="label-wrapper">
+                                    <label for="tempat">Tempat</label>
+                                    <label for="tanggal">dan Tanggal dibuat</label>
+                                </div>
+                                <div class="input-wrapper">
+                                    <div class="input-data md">
+                                        <input type="text" id="tempat" name="tempat" autocomplete required>
+                                        <div class="underline"></div>
+                                    </div>
+                                    <div class="input-data">
+                                        <input type="datetime-local" id="tanggal" name="tanggal" required>
+                                        <div class="underline"></div>
+                                    </div>
+                                </div>
                             </div>
+
 
                             <label>Contact Person (UP)</label>
                             <div class="dropdown">
@@ -158,43 +170,73 @@ $dataProduk = ambilData('data_produk', '*');
                                 <input type="hidden" name="kontak_up" id="kontak" value="">
                                 <div id="kontak-error" class="error-message"></div>
                             </div>
-
-                            <input type="hidden" name="status" value="<?= "draft"; ?>">
-
-                            <input type="submit" value="Simpan" class="success-btn" name="add">
                         </div>
                     </div>
+
+                    <div class="form-row">
+                        <!-- Input detail produk -->
+                        <div class="table dynamic-table">
+                            <table id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Deskripsi</th>
+                                        <th>Satuan</th>
+                                        <th>Kuantitas</th>
+                                        <th>Harga Satuan</th>
+                                        <th>Total Harga</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="data-row">
+                                        <td class="row-number">1</td>
+                                        <td>
+                                            <div class="input-data">
+                                                <input type="text" name="deskripsi[]">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="input-data">
+                                                <input type="text" name="satuan[]">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="input-data">
+                                                <input type="text" name="kuantitas[]">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="input-data">
+                                                <input type="text" name="harga_satuan[]">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </td>
+
+                                        <td><span class="total-harga"></span></td>
+                                        <td>
+                                            <button type="button" class="deleteRow"
+                                                style="display:none;">Delete</button>
+                                            <button type="button" class="addRow">Add</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <!-- Status default penawaran harga (draft) -->
+                    <input type="hidden" name="status" value="<?= "draft"; ?>">
+                    <input type="submit" value="Simpan" class="success-btn" name="add">
+
                 </form>
-            </div>
-
-
-            <div class="table dynamic-table">
-                <div class="table-body">
-                    <table id="dataTable">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th>Kuantitas</th>
-                                <th>Harga</th>
-                                <th>Total</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <form action=""></form>
-                            <tr class="data-row">
-                                <td>
-                                    tes
-                                </td>
-                                <td><input type="text" name="phone" class="phone"></td>
-                                <td><input type="text" name="phone" class="phone"></td>
-                                <td><input type="text" name="phone" class="phone"></td>
-                                <td><button class="deleteRow" style="display:none;">Delete</button><button
-                                        class="addRow">Add</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </div>
@@ -285,24 +327,6 @@ handleDropdown(
     "kontak"
 );
 
-
-// Fungsi prefiew upload logo
-function previewImage(event) {
-    let preview = document.getElementById('image-preview');
-    let file = event.target.files[0];
-    let reader = new FileReader();
-
-    reader.onload = function(e) {
-        let img = document.createElement('img');
-        img.src = e.target.result;
-        img.style.maxWidth = '200px'; // Sesuaikan ukuran preview sesuai kebutuhan
-        preview.innerHTML = '';
-        preview.appendChild(img);
-    };
-
-    reader.readAsDataURL(file);
-}
-
 // Fungsi validasi dropdown wajib di isi
 function validateForm() {
     let pengirim = document.getElementById("pengirim").value;
@@ -368,6 +392,23 @@ imagePreview.addEventListener("change", function() {
     }
 });
 
+// Fungsi prefiew upload logo
+function previewImage(event) {
+    let preview = document.getElementById('image-preview');
+    let file = event.target.files[0];
+    let reader = new FileReader();
+
+    reader.onload = function(e) {
+        let img = document.createElement('img');
+        img.src = e.target.result;
+        preview.innerHTML = '';
+        preview.appendChild(img);
+    };
+
+    reader.readAsDataURL(file);
+}
+
+
 // Menggunakan metode querySelectorAll untuk memilih semua elemen dengan kelas "dropdown-item" di dalam dropdown pengirim
 document.querySelectorAll("#dropdownPengirim .dropdown-item").forEach(item => {
     // Menambahkan event listener click ke setiap elemen
@@ -379,8 +420,6 @@ document.querySelectorAll("#dropdownPengirim .dropdown-item").forEach(item => {
         updateHeaderContentPreview(pengirimId);
     });
 });
-
-
 
 // Fungsi untuk memperbarui header-content-preview
 function updateHeaderContentPreview(pengirimId) {
@@ -395,32 +434,6 @@ function updateHeaderContentPreview(pengirimId) {
     };
     xhr.send();
 }
-
-// Tabel dynamic
-document.addEventListener("click", function(event) {
-    if (event.target.classList.contains("addRow")) {
-        var currentRow = event.target.closest(".data-row");
-        var newRow = currentRow.cloneNode(true);
-
-        // Tombol delete ditampilkan di baris sebelumnya
-        currentRow.querySelector(".deleteRow").style.display = "inline-block";
-
-        // Tombol add disembunyikan di baris sebelumnya
-        currentRow.querySelector(".addRow").style.display = "none";
-
-        // Tombol delete disembunyikan di baris baru
-        newRow.querySelector(".deleteRow").style.display = "none";
-
-        // Tombol add ditampilkan di baris baru
-        newRow.querySelector(".addRow").style.display = "inline-block";
-
-        // Baris baru ditambahkan
-        currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
-    } else if (event.target.classList.contains("deleteRow")) {
-        // Hapus baris ketika tombol delete ditekan
-        event.target.closest(".data-row").remove();
-    }
-});
 </script>
 </body>
 

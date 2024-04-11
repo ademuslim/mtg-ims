@@ -77,7 +77,7 @@ $dataProduk = ambilData('data_produk', '*', "id_produk = '$id'");
                         ?>
                         <input type="hidden" name="id_produk" value="<?= $idProduk; ?>">
 
-                        <label for="no_produk">No. Part</label>
+                        <label for="no_produk">No. Produk</label>
                         <div class="input-data">
                             <input type="text" id="no_produk" name="no_produk" value="<?= $no_produk; ?>" autofocus
                                 required>
